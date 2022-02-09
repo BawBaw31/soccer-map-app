@@ -3,11 +3,11 @@ import { View } from 'react-native'
 
 
 export const AppFooter = styled(View)`
+    flex-direction: row;
     width: 100%;
-    flex: 1;
-    display: flex;
+    position: absolute;
+    bottom: 0;
+    padding: 16px 24px;
     align-items: center;
     justify-content: space-between;
-    /* padding: 1rem 1.5rem; */
-    background-color: cyan;
 `

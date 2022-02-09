@@ -6,21 +6,18 @@ export default function App() {
   return (
     <>
       <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        {/* <AppFooter></AppFooter> */}
-        <StatusBar style='auto' />
+        <AppFooter/>
       </View>
-      <AppFooter></AppFooter>
     </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 5,
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'red',
+    backgroundColor: '#312F36',
     alignItems: 'center',
     justifyContent: 'center',
   },
