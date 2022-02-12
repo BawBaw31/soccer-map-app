@@ -10,9 +10,9 @@ import * as Styled from "./AppFooter.styles"
 
 export const AppFooter: React.FunctionComponent = ({}) => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
-    
+
     return (
-        <Styled.AppFooter>
+        <Styled.AppFooterContainer>
             <TouchableOpacity onPress={() => {
                 console.log('bell clicked')
                 navigation.navigate('Home')
@@ -28,6 +28,6 @@ export const AppFooter: React.FunctionComponent = ({}) => {
             <TouchableOpacity onPress={() => console.log('user clicked')}>
                 <UserIcon/>
             </TouchableOpacity>
-        </Styled.AppFooter>
+        </Styled.AppFooterContainer>
     )
 }
