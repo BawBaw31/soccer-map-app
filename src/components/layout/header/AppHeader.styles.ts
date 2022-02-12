@@ -1,23 +1,24 @@
 import styled from 'styled-components'
 import { TextInput, View } from 'react-native'
+import { Colors, Spacing } from '../../../styles'
 
 export const AppHeaderContainer = styled(View)`
     width: 100%;
     position: absolute;
     top: 0;
-    padding: 0 16px;
+    padding: 0 ${Spacing.l};
 `
 
 export const SearchBarContainer = styled(View)`
     flex-direction: row;
     width: 100%;
-    padding: 12px;
+    padding: ${Spacing.m};
     align-items: center;
     border-radius: 50px;
-    background-color: #24EA73;
+    background-color: ${Colors.primary};
 `
 
 export const SearchBar = styled(TextInput)`
-    margin-left: 12px;
+    margin-left: ${Spacing.m};
     flex-grow: 2;
 `

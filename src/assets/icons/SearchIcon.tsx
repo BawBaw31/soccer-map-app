@@ -1,4 +1,4 @@
-import {SvgXml} from 'react-native-svg';
+import { SvgXml } from 'react-native-svg'
 
 const SearchIcon = () => {
     const xml = `
