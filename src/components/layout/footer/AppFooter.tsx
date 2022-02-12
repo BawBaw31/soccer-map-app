@@ -15,17 +15,22 @@ export const AppFooter: React.FunctionComponent = ({}) => {
         <Styled.AppFooterContainer>
             <TouchableOpacity onPress={() => {
                 console.log('bell clicked')
-                navigation.navigate('Home')
+                // navigation.navigate('')
             }}>
                 <BellIcon/>
             </TouchableOpacity>
+            
             <TouchableOpacity onPress={() => {
                 console.log('plus clicked')
-                navigation.navigate('Test')
+                // navigation.navigate('')
             }}>
                 <PlusIcon/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('user clicked')}>
+
+            <TouchableOpacity onPress={() => {
+                console.log('user clicked')
+                // navigation.navigate('')
+            }}>
                 <UserIcon/>
             </TouchableOpacity>
         </Styled.AppFooterContainer>

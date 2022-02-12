@@ -1,24 +1,31 @@
 import React from 'react'
-import { StyleSheet, Text, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, View } from 'react-native'
 import { AppFooter } from '../components/layout/footer/AppFooter'
+import { AppHeader } from '../components/layout/header/AppHeader'
 
 export const Home: React.FunctionComponent = ({}) => {
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text>Home</Text>
-        <AppFooter/>
+        <SafeAreaView style={styles.safeContainer}>
+          <View style={styles.container}>
+            <AppHeader />
+              <Text>Home</Text>
+            <AppFooter/>
+          </View>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: '#312F36',
+  },
   container: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#312F36',
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative'
   },
 })

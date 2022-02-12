@@ -6,7 +6,7 @@ export const AppFooterContainer = styled(View)`
     width: 100%;
     position: absolute;
     bottom: 0;
-    padding: 32px;
+    padding: 0 32px;
     align-items: center;
     justify-content: space-between;
 `
