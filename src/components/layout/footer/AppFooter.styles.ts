@@ -7,7 +7,7 @@ export const AppFooterContainer = styled(View)`
     width: 100%;
     position: absolute;
     bottom: 0;
-    padding: 0 ${Spacing.xl};
+    padding: ${Spacing.l} ${Spacing.xl};
     align-items: center;
     justify-content: space-between;
 `

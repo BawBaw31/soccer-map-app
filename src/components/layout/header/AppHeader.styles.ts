@@ -6,7 +6,7 @@ export const AppHeaderContainer = styled(View)`
     width: 100%;
     position: absolute;
     top: 0;
-    padding: 0 ${Spacing.l};
+    padding: ${Spacing.s} ${Spacing.l};
 `
 
 export const SearchBarContainer = styled(View)`
