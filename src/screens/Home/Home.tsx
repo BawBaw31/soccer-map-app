@@ -2,6 +2,7 @@ import React from 'react'
 import { Text } from 'react-native'
 import { AppFooter } from '../../components/layout/footer/AppFooter'
 import { AppHeader } from '../../components/layout/header/AppHeader'
+import { Map } from '../../components/map/Map'
 import * as Styled from './Home.styles'
 
 export const Home: React.FunctionComponent = ({}) => {
@@ -10,7 +11,7 @@ export const Home: React.FunctionComponent = ({}) => {
         <Styled.SafeAreaContainer>
           <Styled.PageContainer>
             <AppHeader />
-              <Text>Home</Text>
+              <Map />
             <AppFooter/>
           </Styled.PageContainer>
         </Styled.SafeAreaContainer>
