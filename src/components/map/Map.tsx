@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MapView from 'react-native-maps';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import * as Styled from './Map.styles'
 
 
@@ -13,14 +13,9 @@ export const Map: React.FunctionComponent = ({}) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   map: {
-    width: Dimensions.get('window').width,
+    flex: 1,
+    width: Dimensions.get('window').width / 1.1,
     height: Dimensions.get('window').height,
   },
 });
