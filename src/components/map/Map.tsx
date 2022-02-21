@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import MapView, { Marker } from "react-native-maps";
-import { Text, View } from 'react-native'
-import { StyleSheet, Dimensions } from "react-native";
+import { Text, StyleSheet } from "react-native";
+import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import * as Styled from "./Map.styles";
 
 export const Map: React.FunctionComponent = ({}) => {
   const [location, setLocation]: any = useState(null);
   const [errorMsg, setErrorMsg]: any = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -16,45 +16,46 @@ export const Map: React.FunctionComponent = ({}) => {
         setErrorMsg("Permission to access location was denied");
         return;
       }
-
       let location = await Location.getCurrentPositionAsync({});
+      setIsLoaded(true)
       setLocation(location);
     })();
   }, []);
 
+  let latitudeValue: number = 0;
+  let longitudeValue: number = 0;
+
+  if (errorMsg) {
+    latitudeValue = errorMsg;
+    longitudeValue = errorMsg;
+  } else if (location) {
+    longitudeValue = location.coords.longitude;
+    latitudeValue = location.coords.latitude;
+  }
 
   let geolocation = {
-    latitude: 23.259933,
-    longitude: 77.412613,
+    latitude: latitudeValue,
+    longitude: longitudeValue,
     latitudeDelta: 0.09,
     longitudeDelta: 0.09,
   };
 
-  let text: any = 'Waiting..';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
-
   return (
-    <View>
-      <View>
-        <Text>{text}</Text>
-      </View>
-      <Styled.MapContainer>
-        <MapView style={styles.map} region={geolocation}>
-          <Marker coordinate={{ latitude: 23.259933, longitude: 77.412613 }} />
-        </MapView>
-      </Styled.MapContainer>
-    </View>
+    isLoaded ? <Styled.MapContainer>
+      {/* Todo: import typography */}
+      <Text style={styles.map}>Nearby stadiums</Text>
+      <Styled.Map region={geolocation}>
+        <Marker
+          coordinate={{ latitude: latitudeValue, longitude: longitudeValue }}
+        />
+      </Styled.Map>
+    </Styled.MapContainer> : <Text>Loading...</Text>
   );
 };
 
 const styles = StyleSheet.create({
   map: {
-    flex: 1,
-    width: Dimensions.get("window").width / 1.1,
-    height: Dimensions.get("window").height,
+    marginRight: "auto",
+    marginBottom: 8,
   },
 });

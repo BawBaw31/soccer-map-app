@@ -1,0 +1,1 @@
+export const mapHeight : string = '200'
