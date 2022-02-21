@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { View } from 'react-native'
-import { Spacing } from '../../../styles'
+import { Spacing } from '../../styles'
 
 export const AppFooterContainer = styled(View)`
     flex-direction: row;

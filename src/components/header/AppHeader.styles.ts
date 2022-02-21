@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { TextInput, View } from 'react-native'
-import { Colors, Spacing } from '../../../styles'
+import { Colors, Spacing } from '../../styles'
 
 export const AppHeaderContainer = styled(View)`
     width: 100%;
