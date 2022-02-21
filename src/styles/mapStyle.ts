@@ -1,1 +1,1 @@
-export const mapHeight : string = '200'
+export const mapHeight : string = '200px'

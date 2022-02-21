@@ -26,6 +26,7 @@ import {
 } from '@expo-google-fonts/montserrat';
 
 export default function App() {
+
   let [fontsLoaded] = useFonts({
     Montserrat_100Thin,
     Montserrat_200ExtraLight,
@@ -46,7 +47,7 @@ export default function App() {
     Montserrat_800ExtraBold_Italic,
     Montserrat_900Black_Italic,
   });
-  
+
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
@@ -57,4 +58,5 @@ export default function App() {
         </NavigationContainer>
     )
   }
+
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text } from "react-native";
 import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import * as Styled from "./Map.styles";
@@ -43,7 +43,7 @@ export const Map: React.FunctionComponent = ({}) => {
   return (
     isLoaded ? <Styled.MapContainer>
       {/* Todo: import typography */}
-      <Text style={styles.map}>Nearby stadiums</Text>
+      <Styled.NearbyStadium>Nearby stadiums</Styled.NearbyStadium>
       <Styled.Map region={geolocation}>
         <Marker
           coordinate={{ latitude: latitudeValue, longitude: longitudeValue }}
@@ -52,10 +52,3 @@ export const Map: React.FunctionComponent = ({}) => {
     </Styled.MapContainer> : <Text>Loading...</Text>
   );
 };
-
-const styles = StyleSheet.create({
-  map: {
-    marginRight: "auto",
-    marginBottom: 8,
-  },
-});
