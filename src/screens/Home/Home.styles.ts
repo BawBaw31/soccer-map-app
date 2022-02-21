@@ -8,9 +8,8 @@ export const SafeAreaContainer = styled(SafeAreaView)`
 `
 
 export const PageContainer = styled(View)`
-    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 80px 16px 112px 16px;
 `
