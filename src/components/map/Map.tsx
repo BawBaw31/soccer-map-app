@@ -1,54 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { Text } from "react-native";
-import { Marker } from "react-native-maps";
+import { Marker, Region } from "react-native-maps";
 import * as Location from "expo-location";
 import * as Styled from "./Map.styles";
 
 export const Map: React.FunctionComponent = ({}) => {
-  const [location, setLocation]: any = useState(null);
-  const [errorMsg, setErrorMsg]: any = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [location, setLocation] = useState<Location.LocationObject | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string>('');
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+      let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
+        setErrorMsg("Permission to access location was denied")
+        return
       }
-      let location = await Location.getCurrentPositionAsync({});
+      let location = await Location.getCurrentPositionAsync({})
       setIsLoaded(true)
-      setLocation(location);
-    })();
-  }, []);
+      setLocation(location)
+    })()
+  }, [])
 
-  let latitudeValue: number = 0;
-  let longitudeValue: number = 0;
+  let latitudeValue: number = 0
+  let longitudeValue: number = 0
 
-  if (errorMsg) {
-    latitudeValue = errorMsg;
-    longitudeValue = errorMsg;
-  } else if (location) {
-    longitudeValue = location.coords.longitude;
-    latitudeValue = location.coords.latitude;
+  if (location) {
+    longitudeValue = location.coords.longitude
+    latitudeValue = location.coords.latitude
   }
 
-  let geolocation = {
+  let geolocation: Region = {
     latitude: latitudeValue,
     longitude: longitudeValue,
     latitudeDelta: 0.09,
     longitudeDelta: 0.09,
-  };
+  }
 
   return (
-    isLoaded ? <Styled.MapContainer>
-      {/* Todo: import typography */}
-      <Styled.NearbyStadium>Nearby stadiums</Styled.NearbyStadium>
-      <Styled.Map region={geolocation}>
-        <Marker
-          coordinate={{ latitude: latitudeValue, longitude: longitudeValue }}
-        />
-      </Styled.Map>
-    </Styled.MapContainer> : <Text>Loading...</Text>
-  );
-};
+    isLoaded ? (
+      <Styled.MapContainer>
+        <Styled.MapTitle>Nearby stadiums</Styled.MapTitle>
+        <Styled.Map region={geolocation}>
+          {latitudeValue && longitudeValue ? (
+            <Marker
+              coordinate={{ latitude: latitudeValue, longitude: longitudeValue }}
+            /> 
+          ) : null}
+        </Styled.Map>
+      </Styled.MapContainer>
+    ) : 
+      <Text>Loading...</Text>
+  )
+}

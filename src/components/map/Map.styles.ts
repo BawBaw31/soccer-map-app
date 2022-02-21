@@ -1,27 +1,22 @@
 import styled from 'styled-components'
-import { View, Text } from 'react-native'
-import { Font, Colors } from '../../styles'
+import { Text, View } from 'react-native'
+import { Font, Colors, Percentage } from '../../styles'
 import MapView from "react-native-maps";
-import { Dimensions } from "react-native";
-
-export const MapContainer = styled(View)`
-    flex: 1;
-    alignItems: center;
-    justifyContent: center;
-`
 
 export const Map = styled(MapView)`
-    flex: 1;
-    alignItems: center;
-    justifyContent: center;
-    width: ${Dimensions.get("window").width - 12};
-    height: ${Dimensions.get("window").height};
-    borderRadius: 10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
 `
 
-export const NearbyStadium = styled(Text)`
-    marginRight: auto;
-    marginBottom: 8px;
+export const MapTitle = styled(Text)`
+    margin-right: auto;
+    margin-bottom: 8px;
     color: ${Colors.white};
-    fontFamily: ${Font.montserratSemiBold};
+    font-family: ${Font.montserratSemiBold};
+    font-size: 24px;
+`
+
+export const MapContainer = styled(View)`
+    height: ${Percentage.twoThirds};
 `

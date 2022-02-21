@@ -11,9 +11,7 @@ export const Home: React.FunctionComponent = ({}) => {
           <Styled.PageContainer>
             <AppHeader />
             <View>
-              <Styled.MapContainer>
-                <Map />
-              </Styled.MapContainer>
+              <Map />
             </View>
             <AppFooter/>
           </Styled.PageContainer>

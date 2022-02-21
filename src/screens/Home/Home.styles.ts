@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Colors, MapStyle } from '../../styles'
+import { Colors } from '../../styles'
 import { View, SafeAreaView } from 'react-native'
 
 export const SafeAreaContainer = styled(SafeAreaView)`
@@ -8,14 +8,8 @@ export const SafeAreaContainer = styled(SafeAreaView)`
 `
 
 export const PageContainer = styled(View)`
-    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-`
-
-export const MapContainer = styled(View)`
-    flex: 1;
-    maxHeight: ${MapStyle.mapHeight};
+    width: 100%;
+    height: 100%;
+    padding: 80px 16px 112px 16px;
 `
