@@ -1,7 +1,7 @@
 import React from 'react'
 import { signOut } from 'firebase/auth'
 import { Map } from '../../components/map/Map'
-import { Button } from 'react-native'
+import { Button, View } from 'react-native'
 import { MainLayout } from '../../components/layouts/Layouts'
 import { auth } from '../../firebase/firebase-setup'
 

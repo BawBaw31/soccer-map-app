@@ -10,7 +10,6 @@ export const Map = styled(MapView)`
 `
 
 export const MapTitle = styled(Text)`
-    margin-right: auto;
     margin-bottom: 8px;
     color: ${Colors.white};
     font-family: ${Font.montserratSemiBold};
@@ -18,5 +17,6 @@ export const MapTitle = styled(Text)`
 `
 
 export const MapContainer = styled(View)`
-    height: ${Percentage.twoThirds};
+    height: 100px;
+    margin-bottom: 64px;
 `
