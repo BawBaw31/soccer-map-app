@@ -8,9 +8,11 @@ export const SafeAreaContainer = styled(SafeAreaView)`
 `
 
 export const PageContainer = styled(View)`
-    display: flex;
-    width: 100%;
-    height: 100%;
+    flex: 1;
+`
+
+export const PageContent = styled(View)`
+    flex: 1;
     padding: 80px 16px 112px 16px;
 `
 

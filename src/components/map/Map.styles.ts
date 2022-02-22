@@ -17,6 +17,6 @@ export const MapTitle = styled(Text)`
 `
 
 export const MapContainer = styled(View)`
-    height: 100px;
+    height: ${Percentage.oneQuarter};
     margin-bottom: 64px;
 `

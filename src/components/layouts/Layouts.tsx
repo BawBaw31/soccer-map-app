@@ -9,7 +9,9 @@ export const MainLayout: React.FunctionComponent = (props) => {
         <Styled.SafeAreaContainer>
             <Styled.PageContainer>
                 <AppHeader />
-                { props.children }
+                <Styled.PageContent>
+                    { props.children }
+                </Styled.PageContent>
                 <AppFooter/>
             </Styled.PageContainer>
         </Styled.SafeAreaContainer>
