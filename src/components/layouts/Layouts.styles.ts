@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import { Colors } from '../../styles'
-import { View, SafeAreaView, KeyboardAvoidingView } from 'react-native'
+import { View, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native'
 
 export const SafeAreaContainer = styled(SafeAreaView)`
     flex: 1;
     background-color: ${Colors.background};
+    padding-top: ${ Platform.OS === 'android' ? '25px' : 0 };
 `
 
 export const PageContainer = styled(View)`
