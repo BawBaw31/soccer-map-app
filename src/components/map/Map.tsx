@@ -38,18 +38,18 @@ export const Map: React.FunctionComponent = ({}) => {
   }
 
   return (
-    isLoaded ? (
-      <Styled.MapContainer>
-        <Styled.MapTitle>Nearby stadiums</Styled.MapTitle>
-        <Styled.Map region={geolocation}>
-          {latitudeValue && longitudeValue ? (
-            <Marker
-              coordinate={{ latitude: latitudeValue, longitude: longitudeValue }}
-            /> 
-          ) : null}
-        </Styled.Map>
-      </Styled.MapContainer>
-    ) : 
-      <Text>Loading...</Text>
+    <Styled.MapContainer>
+      <Styled.MapTitle>Nearby stadiums</Styled.MapTitle>
+        {isLoaded ? (
+          <Styled.Map region={geolocation}>
+            {latitudeValue && longitudeValue ? (
+              <Marker
+                coordinate={{ latitude: latitudeValue, longitude: longitudeValue }}
+              /> 
+            ) : null}
+          </Styled.Map>
+        ) : 
+          <Text>Loading...</Text>}
+    </Styled.MapContainer>
   )
 }

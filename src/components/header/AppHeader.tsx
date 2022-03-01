@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { NativeSyntheticEvent, TextInputSubmitEditingEventData } from 'react-native'
-import SearchIcon from '../../../assets/icons/SearchIcon'
+import SearchIcon from '../../assets/icons/SearchIcon'
 import * as Styled from './AppHeader.styles'
 
 export const AppHeader: React.FunctionComponent = ({}) => {

@@ -1,20 +1,26 @@
 import React from 'react'
-import { AppFooter } from '../../components/layout/footer/AppFooter'
-import { AppHeader } from '../../components/layout/header/AppHeader'
+import { signOut } from 'firebase/auth'
 import { Map } from '../../components/map/Map'
-import { View } from 'react-native'
-import * as Styled from './Home.styles'
+import { Button, View } from 'react-native'
+import { MainLayout } from '../../components/layouts/Layouts'
+import { auth } from '../../firebase/firebase-setup'
 
 export const Home: React.FunctionComponent = ({}) => {
-    return (
-        <Styled.SafeAreaContainer>
-          <Styled.PageContainer>
-            <AppHeader />
-            <View>
-              <Map />
-            </View>
-            <AppFooter/>
-          </Styled.PageContainer>
-        </Styled.SafeAreaContainer>
-    )
+
+  const Logout = () => {
+      signOut(auth)
+      .then((res) => {
+          console.log(res)
+      })
+      .catch((err) => {
+          alert(err)
+      })
+  }
+
+  return (
+    <MainLayout>
+      <Map />
+      <Button title='Logout' onPress={Logout}/>
+    </MainLayout>
+  )
 }
