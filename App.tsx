@@ -21,12 +21,12 @@ export default function App() {
   })
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   } else {
     return (
         <NavigationContainer>
-          <RootNavigator />
           <StatusBar style='auto' />
+          <RootNavigator />
         </NavigationContainer>
     )
   }
