@@ -1,37 +1,38 @@
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteParams } from '../../navigation/RootNavigator'
 import { TouchableOpacity } from 'react-native'
 import BellIcon from '../../assets/icons/BellIcon'
 import PlusIcon from '../../assets/icons/PlusIcon'
 import UserIcon from '../../assets/icons/UserIcon'
 import * as Styled from './AppFooter.styles'
 
-export const AppFooter: React.FunctionComponent = ({}) => {
-    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
-
+export const AppFooter: React.FunctionComponent = () => {
     return (
         <Styled.AppFooterContainer>
-            <TouchableOpacity onPress={() => {
-                console.log('bell clicked')
-                // navigation.navigate('')
-            }}>
-                <BellIcon/>
+            <TouchableOpacity
+                onPress={() => {
+                    console.log('bell clicked')
+                    // navigation.navigate('')
+                }}
+            >
+                <BellIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {
-                console.log('plus clicked')
-                // navigation.navigate('')
-            }}>
-                <PlusIcon/>
+            <TouchableOpacity
+                onPress={() => {
+                    console.log('plus clicked')
+                    // navigation.navigate('')
+                }}
+            >
+                <PlusIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {
-                console.log('user clicked')
-                // navigation.navigate('')
-            }}>
-                <UserIcon/>
+            <TouchableOpacity
+                onPress={() => {
+                    console.log('user clicked')
+                    // navigation.navigate('')
+                }}
+            >
+                <UserIcon />
             </TouchableOpacity>
         </Styled.AppFooterContainer>
     )

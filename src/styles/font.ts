@@ -1,2 +1,2 @@
-export const montserratSemiBold : string = 'Montserrat_600SemiBold'
-export const montserratRegular : string = 'Montserrat_400Regular'
+export const montserratSemiBold = 'Montserrat_600SemiBold'
+export const montserratRegular = 'Montserrat_400Regular'

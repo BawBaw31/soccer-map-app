@@ -1,3 +1,4 @@
+import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useState } from 'react'
@@ -8,9 +9,9 @@ import { Register } from '../screens/Register/Register'
 import { SignIn } from '../screens/SignIn/SignIn'
 
 export type RouteParams = {
-    Home: undefined,
-    Loading: undefined,
-    Register: undefined,
+    Home: undefined
+    Loading: undefined
+    Register: undefined
     SignIn: undefined
 }
 
@@ -21,7 +22,7 @@ export const RootNavigator = () => {
     const [isSignedIn, setIsSignedIn] = useState(false)
 
     onAuthStateChanged(auth, (user) => {
-        if(user) {
+        if (user) {
             setIsLoading(false)
             setIsSignedIn(true)
         } else {
@@ -31,23 +32,25 @@ export const RootNavigator = () => {
     })
 
     return (
-        <Stack.Navigator screenOptions={{
-            animation: 'none',
-            headerShown: false
-        }}>
+        <Stack.Navigator
+            screenOptions={{
+                animation: 'none',
+                headerShown: false,
+            }}
+        >
             {isLoading ? (
                 <Stack.Group>
-                    <Stack.Screen name='Loading' component={Loading} />
-                </Stack.Group>) : (
-                isSignedIn ? (
-                    <Stack.Group>
-                        <Stack.Screen name='Home' component={Home} />
-                    </Stack.Group>) : (
-                    <Stack.Group>
-                        <Stack.Screen name='SignIn' component={SignIn} />
-                        <Stack.Screen name='Register' component={Register} />
-                    </Stack.Group>
-                )
+                    <Stack.Screen name="Loading" component={Loading} />
+                </Stack.Group>
+            ) : isSignedIn ? (
+                <Stack.Group>
+                    <Stack.Screen name="Home" component={Home} />
+                </Stack.Group>
+            ) : (
+                <Stack.Group>
+                    <Stack.Screen name="SignIn" component={SignIn} />
+                    <Stack.Screen name="Register" component={Register} />
+                </Stack.Group>
             )}
         </Stack.Navigator>
     )
