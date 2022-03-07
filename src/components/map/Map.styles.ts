@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Text, View } from 'react-native'
 import { Font, Colors, Percentage } from '../../styles'
-import MapView from "react-native-maps";
+import MapView from 'react-native-maps'
 
 export const Map = styled(MapView)`
     width: 100%;

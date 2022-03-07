@@ -3,10 +3,10 @@ import { NativeSyntheticEvent, TextInputSubmitEditingEventData } from 'react-nat
 import SearchIcon from '../../assets/icons/SearchIcon'
 import * as Styled from './AppHeader.styles'
 
-export const AppHeader: React.FunctionComponent = ({}) => {
+export const AppHeader: React.FunctionComponent = () => {
     const [searchText, setSearchText] = useState('')
 
-    const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) :void => {
+    const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void => {
         e.preventDefault()
         console.log(searchText)
     }
@@ -15,11 +15,12 @@ export const AppHeader: React.FunctionComponent = ({}) => {
         <Styled.AppHeaderContainer>
             <Styled.SearchBarContainer>
                 <SearchIcon />
-                <Styled.SearchBar 
+                <Styled.SearchBar
                     onChangeText={setSearchText}
                     value={searchText}
-                    placeholder='Press to search...'
-                    onSubmitEditing={onSubmit}/>
+                    placeholder="Press to search..."
+                    onSubmitEditing={onSubmit}
+                />
             </Styled.SearchBarContainer>
         </Styled.AppHeaderContainer>
     )
