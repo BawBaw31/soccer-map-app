@@ -11,7 +11,7 @@ export const FullWidthButton: React.FunctionComponent<ButtonProps> = (props: But
     return (
         <TouchableOpacity onPress={props.onPress}>
             <Styled.FullWidthButtonContainer>
-                <Styled.FullWidthButtonText>{props.text}</Styled.FullWidthButtonText>
+                <Styled.FullWidthButtonLabel>{props.text}</Styled.FullWidthButtonLabel>
             </Styled.FullWidthButtonContainer>
         </TouchableOpacity>
     )

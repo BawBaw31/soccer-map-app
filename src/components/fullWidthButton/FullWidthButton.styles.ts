@@ -12,9 +12,9 @@ export const FullWidthButtonContainer = styled(View)`
     margin-bottom: 24px;
 `
 
-export const FullWidthButtonText = styled(Text)`
+export const FullWidthButtonLabel = styled(Text)`
     font-size: 30px;
-    padding: 31px 14px 31px 14px;
+    padding: 32px 16px;
     font-family: ${Font.montserratExtrabold};
     color: ${Colors.white};
 `
