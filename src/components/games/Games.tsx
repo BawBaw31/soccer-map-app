@@ -3,7 +3,7 @@ import Carousel from 'react-native-snap-carousel'
 import { CarouselStyle } from '../../styles'
 import * as Styled from './Games.styles'
 
-const exampleItems = [
+const mockGames = [
     {
         name: 'Game 1',
         date: '07/08/22',
@@ -63,9 +63,7 @@ interface RenderItemProps {
 }
 
 export const Games: React.FunctionComponent = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [activeIndex, setActiveIndex] = useState<number>(0)
-    const [carouselItems] = useState<ItemProps[]>(exampleItems)
+    const [carouselItems] = useState<ItemProps[]>(mockGames)
 
     const renderItem = useCallback(({ item }: RenderItemProps) => {
         return (
@@ -87,10 +85,8 @@ export const Games: React.FunctionComponent = () => {
                 activeSlideAlignment={'start'}
                 inactiveSlideScale={1}
                 inactiveSlideOpacity={1}
-                layout={'default'}
                 data={carouselItems}
                 renderItem={renderItem}
-                onSnapToItem={(index: number) => setActiveIndex(index)}
             />
         </Styled.GamesContainer>
     )
