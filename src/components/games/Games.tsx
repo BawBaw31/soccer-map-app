@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react'
+import { TouchableOpacity } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import { CarouselStyle } from '../../styles'
 import * as Styled from './Games.styles'
@@ -65,13 +66,19 @@ interface RenderItemProps {
 export const Games: React.FunctionComponent = () => {
     const [carouselItems] = useState<ItemProps[]>(mockGames)
 
-    const renderItem = useCallback(({ item }: RenderItemProps) => {
+    const renderItem = useCallback(({ item, index }: RenderItemProps) => {
         return (
-            <Styled.ItemContainer>
-                <Styled.ItemTitle>{item.name}</Styled.ItemTitle>
-                <Styled.ItemText>{item.date}</Styled.ItemText>
-                <Styled.ItemText>{item.time}</Styled.ItemText>
-            </Styled.ItemContainer>
+            <TouchableOpacity
+                onPress={() => {
+                    console.log(`item with index ${index} clicked`)
+                }}
+            >
+                <Styled.ItemContainer>
+                    <Styled.ItemTitle>{item.name}</Styled.ItemTitle>
+                    <Styled.ItemText>{item.date}</Styled.ItemText>
+                    <Styled.ItemText>{item.time}</Styled.ItemText>
+                </Styled.ItemContainer>
+            </TouchableOpacity>
         )
     }, [])
 
