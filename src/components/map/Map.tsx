@@ -6,6 +6,7 @@ import * as Styled from './Map.styles'
 
 export const Map: React.FunctionComponent = () => {
     const [location, setLocation] = useState<Location.LocationObject | null>(null)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [errorMsg, setErrorMsg] = useState<string>('')
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
