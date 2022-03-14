@@ -1,7 +1,7 @@
 import React from 'react'
 import { signOut } from 'firebase/auth'
 import { Map } from '../../components/map/Map'
-import { Games } from '../../components/games/Games'
+import { Games } from '../../components/games/GamesCarousel'
 import { Button } from 'react-native'
 import { MainLayout } from '../../components/layouts/Layouts'
 import { auth } from '../../firebase/firebase-setup'
