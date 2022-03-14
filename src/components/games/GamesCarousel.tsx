@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Dimensions } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
-import { Carousel as CarouselStyle } from '../../styles'
-import * as Styled from './Games.styles'
+import * as Styled from './GamesCarousel.styles'
 import gamesFixture from '../../fixtures/games-fixture.json'
 
 interface ItemProps {
@@ -18,6 +17,13 @@ interface RenderItemProps {
 
 export const Games: React.FunctionComponent = () => {
     const [carouselItems] = useState<ItemProps[]>(gamesFixture)
+
+    // Carousel config
+    const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
+    const SLIDE_WIDTH = Math.round(viewportWidth / 5)
+    const ITEM_HORIZONTAL_MARGIN = 16
+    const ITEM_WIDTH = SLIDE_WIDTH + ITEM_HORIZONTAL_MARGIN * 4
+    const SLIDER_WIDTH = viewportWidth
 
     const renderItem = useCallback(({ item, index }: RenderItemProps) => {
         return (
@@ -39,9 +45,9 @@ export const Games: React.FunctionComponent = () => {
         <Styled.GamesContainer>
             <Styled.GamesTitle>My Games</Styled.GamesTitle>
             <Carousel
-                sliderWidth={CarouselStyle.SLIDER_WIDTH}
-                sliderHeight={CarouselStyle.viewportHeight}
-                itemWidth={CarouselStyle.ITEM_WIDTH}
+                sliderWidth={SLIDER_WIDTH}
+                sliderHeight={viewportHeight}
+                itemWidth={ITEM_WIDTH}
                 activeSlideAlignment={'start'}
                 inactiveSlideScale={1}
                 inactiveSlideOpacity={1}
