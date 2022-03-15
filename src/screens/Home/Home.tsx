@@ -2,7 +2,8 @@ import React from 'react'
 import { signOut } from 'firebase/auth'
 import { Map } from '../../components/map/Map'
 import { Games } from '../../components/games/GamesCarousel'
-import { Button } from 'react-native'
+import { FullWidthButton } from '../../components/fullWidthButton/FullWidthButton'
+import { Button as LogoutButton } from 'react-native'
 import { MainLayout } from '../../components/layouts/Layouts'
 import { auth } from '../../firebase/firebase-setup'
 
@@ -17,11 +18,16 @@ export const Home: React.FunctionComponent = () => {
             })
     }
 
+    const onPress = () => {
+        console.log('Button clicked !')
+    }
+
     return (
         <MainLayout>
             <Games />
+            <FullWidthButton text="Add stadium" onPress={onPress} />
             <Map />
-            <Button title="Logout" onPress={Logout} />
+            <LogoutButton title="Logout" onPress={Logout} />
         </MainLayout>
     )
 }
