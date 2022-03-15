@@ -2,9 +2,8 @@ import styled from 'styled-components'
 import { Text, View } from 'react-native'
 import { Colors, Font } from '../../styles/'
 
-export const ButtonContainer = styled(View)`
+export const FullWidthButtonContainer = styled(View)`
     display: flex;
-    padding: 31px 14px 31px 14px;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -13,8 +12,9 @@ export const ButtonContainer = styled(View)`
     margin-bottom: 24px;
 `
 
-export const ButtonText = styled(Text)`
+export const FullWidthButtonText = styled(Text)`
     font-size: 30px;
+    padding: 31px 14px 31px 14px;
     font-family: ${Font.montserratExtrabold};
     color: ${Colors.white};
 `

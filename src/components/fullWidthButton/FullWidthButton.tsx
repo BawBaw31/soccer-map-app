@@ -10,9 +10,9 @@ interface ButtonProps {
 export const FullWidthButton: React.FunctionComponent<ButtonProps> = (props: ButtonProps) => {
     return (
         <TouchableOpacity onPress={props.onPress}>
-            <Styled.ButtonContainer>
-                <Styled.ButtonText>{props.text}</Styled.ButtonText>
-            </Styled.ButtonContainer>
+            <Styled.FullWidthButtonContainer>
+                <Styled.FullWidthButtonText>{props.text}</Styled.FullWidthButtonText>
+            </Styled.FullWidthButtonContainer>
         </TouchableOpacity>
     )
 }
