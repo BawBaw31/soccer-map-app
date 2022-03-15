@@ -25,7 +25,7 @@ export const Home: React.FunctionComponent = () => {
     return (
         <MainLayout>
             <Games />
-            <FullWidthButton text="Add stadium" onPress={onPress} />
+            <FullWidthButton text="ADD A STADIUM" onPress={onPress} />
             <Map />
             <LogoutButton title="Logout" onPress={Logout} />
         </MainLayout>
