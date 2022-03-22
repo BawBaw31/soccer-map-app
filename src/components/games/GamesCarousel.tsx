@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { TouchableOpacity, Dimensions } from 'react-native'
+import { TouchableOpacity, Dimensions, Text } from 'react-native'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import Carousel from 'react-native-snap-carousel'
 import * as Styled from './GamesCarousel.styles'
+import { auth } from '../../firebase/firebase-setup'
 
 interface ItemProps {
     name: string
@@ -16,15 +17,8 @@ interface RenderItemProps {
 }
 
 export const Games: React.FunctionComponent = () => {
-    const [carouselItems, setCarouselItems] = useState(null)
-
-    useEffect(() => {
-        const db = getDatabase()
-        const reference = ref(db, 'games')
-        onValue(reference, (snapshot) => {
-            setCarouselItems(snapshot.val())
-        })
-    }, [])
+    const [carouselItems, setCarouselItems] = useState<any>([])
+    const db = getDatabase()
 
     // Carousel config
     const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
@@ -32,6 +26,23 @@ export const Games: React.FunctionComponent = () => {
     const ITEM_HORIZONTAL_MARGIN = 16
     const ITEM_WIDTH = SLIDE_WIDTH + ITEM_HORIZONTAL_MARGIN * 4
     const SLIDER_WIDTH = viewportWidth
+
+    useEffect(() => {
+        if (auth.currentUser) {
+            const gamesRef = ref(db, 'players/' + auth.currentUser.uid + '/games')
+            onValue(gamesRef, (snapshot) => {
+                setCarouselItems([])
+                if (snapshot.val()) {
+                    snapshot.val().forEach((id: string) => {
+                        const game = ref(db, 'games/' + id)
+                        onValue(game, (snapshot) => {
+                            setCarouselItems((items: any) => [...items, snapshot.val()])
+                        })
+                    })
+                }
+            })
+        }
+    }, [])
 
     const renderItem = useCallback(({ item, index }: RenderItemProps) => {
         return (
@@ -52,7 +63,7 @@ export const Games: React.FunctionComponent = () => {
     return (
         <Styled.GamesContainer>
             <Styled.GamesTitle>My Games</Styled.GamesTitle>
-            {carouselItems && (
+            {carouselItems.length ? (
                 <Carousel
                     sliderWidth={SLIDER_WIDTH}
                     sliderHeight={viewportHeight}
@@ -63,6 +74,8 @@ export const Games: React.FunctionComponent = () => {
                     data={carouselItems}
                     renderItem={renderItem}
                 />
+            ) : (
+                <Text>You have no games comming</Text>
             )}
         </Styled.GamesContainer>
     )
