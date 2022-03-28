@@ -9,6 +9,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
 
 export const AppFooter = () => {
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
     return (
         <Styled.AppFooterContainer>
             <TouchableOpacity

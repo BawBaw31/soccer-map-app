@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Styled from './SubmitButton.styles'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 
 interface ButtonProps {
     text: string
