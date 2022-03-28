@@ -1,23 +1,11 @@
-import React, { useState, useCallback } from 'react'
-import { TouchableOpacity, Dimensions } from 'react-native'
+import { getDatabase, onValue, ref } from 'firebase/database'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Dimensions, TouchableOpacity } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
+import { auth } from '../../firebase/firebase-setup'
 import * as Styled from './GamesCarousel.styles'
-import gamesFixture from '../../fixtures/games-fixture.json'
-
-interface ItemProps {
-    name: string
-    date: string
-    time: string
-}
-
-interface RenderItemProps {
-    item: ItemProps
-    index: number
-}
 
 export const Games: React.FunctionComponent = () => {
-    const [carouselItems] = useState<ItemProps[]>(gamesFixture)
-
     // Carousel config
     const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
     const SLIDE_WIDTH = Math.round(viewportWidth / 5)
@@ -25,7 +13,22 @@ export const Games: React.FunctionComponent = () => {
     const ITEM_WIDTH = SLIDE_WIDTH + ITEM_HORIZONTAL_MARGIN * 4
     const SLIDER_WIDTH = viewportWidth
 
-    const renderItem = useCallback(({ item, index }: RenderItemProps) => {
+    const [games, setGames] = useState<any>([])
+
+    useEffect(() => {
+        const db = getDatabase()
+        const gamesRef = ref(db, 'players/' + auth.currentUser?.uid + '/games')
+        onValue(gamesRef, (snapshot) => {
+            snapshot.val().forEach((gameId: string) => {
+                const gameRef = ref(db, 'games/' + gameId)
+                onValue(gameRef, (snapshot) => {
+                    setGames((games: any) => [...games, snapshot.val()])
+                })
+            })
+        })
+    }, [])
+
+    const renderItem = useCallback(({ item, index }) => {
         return (
             <TouchableOpacity
                 onPress={() => {
@@ -34,8 +37,8 @@ export const Games: React.FunctionComponent = () => {
             >
                 <Styled.ItemContainer>
                     <Styled.ItemTitle>{item.name}</Styled.ItemTitle>
-                    <Styled.ItemText>{item.date}</Styled.ItemText>
-                    <Styled.ItemText>{item.time}</Styled.ItemText>
+                    <Styled.ItemText>{item.date.split(',')[0]}</Styled.ItemText>
+                    <Styled.ItemText>{item.date.split(',')[1]}</Styled.ItemText>
                 </Styled.ItemContainer>
             </TouchableOpacity>
         )
@@ -51,7 +54,7 @@ export const Games: React.FunctionComponent = () => {
                 activeSlideAlignment={'start'}
                 inactiveSlideScale={1}
                 inactiveSlideOpacity={1}
-                data={carouselItems}
+                data={games}
                 renderItem={renderItem}
             />
         </Styled.GamesContainer>
