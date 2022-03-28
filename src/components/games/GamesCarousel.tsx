@@ -5,7 +5,7 @@ import Carousel from 'react-native-snap-carousel'
 import { auth } from '../../firebase/firebase-setup'
 import * as Styled from './GamesCarousel.styles'
 
-export const Games: React.FunctionComponent = () => {
+export const Games = () => {
     // Carousel config
     const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
     const SLIDE_WIDTH = Math.round(viewportWidth / 5)

@@ -5,7 +5,7 @@ import PlusIcon from '../../assets/icons/PlusIcon'
 import UserIcon from '../../assets/icons/UserIcon'
 import * as Styled from './AppFooter.styles'
 
-export const AppFooter: React.FunctionComponent = () => {
+export const AppFooter = () => {
     return (
         <Styled.AppFooterContainer>
             <TouchableOpacity
