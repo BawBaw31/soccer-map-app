@@ -4,6 +4,9 @@ import BellIcon from '../../assets/icons/BellIcon'
 import PlusIcon from '../../assets/icons/PlusIcon'
 import UserIcon from '../../assets/icons/UserIcon'
 import * as Styled from './AppFooter.styles'
+import { RouteParams } from '../../navigation/RootNavigator'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useNavigation } from '@react-navigation/native'
 
 export const AppFooter = () => {
     return (
@@ -20,7 +23,7 @@ export const AppFooter = () => {
             <TouchableOpacity
                 onPress={() => {
                     console.log('plus clicked')
-                    // navigation.navigate('')
+                    navigation.navigate('NewGame')
                 }}
             >
                 <PlusIcon />
