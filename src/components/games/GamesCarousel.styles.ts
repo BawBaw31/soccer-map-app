@@ -10,7 +10,6 @@ export const GamesTitle = styled(Text)`
 `
 
 export const GamesContainer = styled(View)`
-    height: ${Percentage.oneThird};
     margin-bottom: 24px;
 `
 
@@ -33,6 +32,6 @@ export const ItemContainer = styled(View)`
     border-radius: 10px;
     padding-left: 8px;
     padding-top: 16px;
-    height: ${Percentage.full};
+    padding: 16px;
     margin-right: 20px;
 `
