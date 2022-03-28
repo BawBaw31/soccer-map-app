@@ -7,7 +7,7 @@ interface ButtonProps {
     onPress(): void
 }
 
-export const FullWidthButton: React.FunctionComponent<ButtonProps> = (props: ButtonProps) => {
+export const FullWidthButton = (props: ButtonProps) => {
     return (
         <TouchableOpacity onPress={props.onPress}>
             <Styled.FullWidthButtonContainer>

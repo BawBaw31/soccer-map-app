@@ -8,7 +8,7 @@ import { RouteParams } from '../../navigation/RootNavigator'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
 
-export const Register: React.FunctionComponent = () => {
+export const Register = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -30,17 +30,23 @@ export const Register: React.FunctionComponent = () => {
 
     return (
         <DisconnectedLayout>
-            <Text>Register</Text>
-            <TextInput placeholder="Email" value={email} onChangeText={(text) => setEmail(text)} />
-            <TextInput
-                placeholder="Password"
-                value={password}
-                secureTextEntry={true}
-                onChangeText={(text) => setPassword(text)}
-            />
+            <>
+                <Text>Register</Text>
+                <TextInput
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                />
+                <TextInput
+                    placeholder="Password"
+                    value={password}
+                    secureTextEntry={true}
+                    onChangeText={(text) => setPassword(text)}
+                />
 
-            <Button title="Submit" onPress={RegisterUser} />
-            <Button title="Sign in" onPress={() => navigation.navigate('SignIn')} />
+                <Button title="Submit" onPress={RegisterUser} />
+                <Button title="Sign in" onPress={() => navigation.navigate('SignIn')} />
+            </>
         </DisconnectedLayout>
     )
 }

@@ -4,7 +4,7 @@ import { Marker, Region } from 'react-native-maps'
 import * as Location from 'expo-location'
 import * as Styled from './Map.styles'
 
-export const Map: React.FunctionComponent = () => {
+export const Map = () => {
     const [location, setLocation] = useState<Location.LocationObject | null>(null)
     const [errorMsg, setErrorMsg] = useState<string>('')
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
