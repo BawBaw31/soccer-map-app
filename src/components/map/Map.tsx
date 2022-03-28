@@ -10,6 +10,7 @@ export const Map: React.FunctionComponent = () => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
     useEffect(() => {
+        const ac = new AbortController()
         ;(async () => {
             const { status } = await Location.requestForegroundPermissionsAsync()
             if (status !== 'granted') {
@@ -20,6 +21,7 @@ export const Map: React.FunctionComponent = () => {
             setIsLoaded(true)
             setLocation(location)
         })()
+        return () => ac.abort()
     }, [])
 
     let latitudeValue = 0
