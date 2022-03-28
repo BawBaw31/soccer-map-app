@@ -1,11 +1,15 @@
 import React from 'react'
-import { Text } from 'react-native'
 import { MainLayout } from '../../components/layouts/Layouts'
+import { SubmitButton } from '../../components/submitButton/SubmitButton'
 
 export const NewGame: React.FunctionComponent = () => {
+    const onPress = () => {
+        console.log('Button clicked !')
+    }
+
     return (
         <MainLayout>
-            <Text>New Game page</Text>
+            <SubmitButton text="Submit" onPress={onPress} />
         </MainLayout>
     )
 }
