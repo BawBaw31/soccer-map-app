@@ -1,13 +1,22 @@
 import React from 'react'
 import { AppFooter } from '../footer/AppFooter'
-import { AppHeader } from '../header/AppHeader'
+import { SearchHeader, TitleHeader } from '../header/AppHeader'
 import * as Styled from './Layouts.styles'
 
-export const MainLayout: React.FunctionComponent = (props) => {
+interface LayoutProps {
+    children: JSX.Element
+}
+
+interface TitleLayoutProps {
+    children: JSX.Element
+    title: string
+}
+
+export const SearchLayout = (props: LayoutProps) => {
     return (
         <Styled.SafeAreaContainer>
             <Styled.PageContainer>
-                <AppHeader />
+                <SearchHeader />
                 <Styled.PageContent>{props.children}</Styled.PageContent>
                 <AppFooter />
             </Styled.PageContainer>
@@ -15,12 +24,24 @@ export const MainLayout: React.FunctionComponent = (props) => {
     )
 }
 
-export const DisconnectedLayout: React.FunctionComponent = (props) => {
+export const DisconnectedLayout = (props: LayoutProps) => {
     return (
         <Styled.SafeAreaContainer>
             <Styled.KeyboardAvoidingContainer behavior="padding">
                 {props.children}
             </Styled.KeyboardAvoidingContainer>
+        </Styled.SafeAreaContainer>
+    )
+}
+
+export const TitleLayout = (props: TitleLayoutProps) => {
+    return (
+        <Styled.SafeAreaContainer>
+            <Styled.PageContainer>
+                <TitleHeader title={props.title} />
+                <Styled.PageContent>{props.children}</Styled.PageContent>
+                <AppFooter />
+            </Styled.PageContainer>
         </Styled.SafeAreaContainer>
     )
 }

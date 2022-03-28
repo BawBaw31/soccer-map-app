@@ -1,13 +1,13 @@
-import React from 'react'
 import { signOut } from 'firebase/auth'
-import { Map } from '../../components/map/Map'
-import { Games } from '../../components/games/GamesCarousel'
-import { FullWidthButton } from '../../components/fullWidthButton/FullWidthButton'
+import React from 'react'
 import { Button } from 'react-native'
-import { MainLayout } from '../../components/layouts/Layouts'
+import { FullWidthButton } from '../../components/fullWidthButton/FullWidthButton'
+import { Games } from '../../components/games/GamesCarousel'
+import { SearchLayout } from '../../components/layouts/Layouts'
+import { Map } from '../../components/map/Map'
 import { auth } from '../../firebase/firebase-setup'
 
-export const Home: React.FunctionComponent = () => {
+export const Home = () => {
     const Logout = () => {
         signOut(auth)
             .then((res) => {
@@ -23,11 +23,13 @@ export const Home: React.FunctionComponent = () => {
     }
 
     return (
-        <MainLayout>
-            <Games />
-            <FullWidthButton text="ADD A STADIUM" onPress={onPress} />
-            <Map />
-            <Button title="Logout" onPress={Logout} />
-        </MainLayout>
+        <SearchLayout>
+            <>
+                <Games />
+                <FullWidthButton text="ADD A STADIUM" onPress={onPress} />
+                <Map />
+                <Button title="Logout" onPress={Logout} />
+            </>
+        </SearchLayout>
     )
 }
