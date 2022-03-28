@@ -18,7 +18,9 @@ export const Games: React.FunctionComponent = () => {
     useEffect(() => {
         const db = getDatabase()
         const gamesRef = ref(db, 'players/' + auth.currentUser?.uid + '/games')
+        const ac = new AbortController()
         onValue(gamesRef, (snapshot) => {
+            setGames([])
             snapshot.val().forEach((gameId: string) => {
                 const gameRef = ref(db, 'games/' + gameId)
                 onValue(gameRef, (snapshot) => {
@@ -26,6 +28,7 @@ export const Games: React.FunctionComponent = () => {
                 })
             })
         })
+        return () => ac.abort()
     }, [])
 
     const renderItem = useCallback(({ item, index }) => {
