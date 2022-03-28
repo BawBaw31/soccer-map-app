@@ -20,12 +20,7 @@ export const AppFooter = () => {
                 <BellIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity
-                onPress={() => {
-                    console.log('plus clicked')
-                    navigation.navigate('NewGame')
-                }}
-            >
+            <TouchableOpacity onPress={() => navigation.navigate('NewGame')}>
                 <PlusIcon />
             </TouchableOpacity>
 
