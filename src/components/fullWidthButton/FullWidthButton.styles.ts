@@ -3,7 +3,6 @@ import { Text, View } from 'react-native'
 import { Colors, Font } from '../../styles/'
 
 export const FullWidthButtonContainer = styled(View)`
-    display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;

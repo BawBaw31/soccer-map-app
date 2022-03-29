@@ -19,7 +19,6 @@ export const PageContent = styled(View)`
 
 export const KeyboardAvoidingContainer = styled(KeyboardAvoidingView)`
     flex: 1;
-    display: flex;
     align-items: center;
     justify-content: center;
     position: relative;

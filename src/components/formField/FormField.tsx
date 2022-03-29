@@ -1,20 +1,18 @@
 import React from 'react'
 import * as Styled from './FormField.styles'
 
-interface FormFieldProps {
-    placeholder: string
+interface CustomButtonProps {
+    text: string
+    onPress(): void
+    submit?: boolean
 }
 
-export const SubmitButton = (props: FormFieldProps) => {
-    const [text, onChangeText] = React.useState('')
-
+export const CustomButton = (props: CustomButtonProps) => {
     return (
-        <Styled.FormFieldContainer>
-            <Styled.FormField
-                onChangeText={onChangeText}
-                value={text}
-                placeholder={props.placeholder}
-            />
-        </Styled.FormFieldContainer>
+        <Styled.SubmitButtonContainer>
+            <Styled.SubmitButton onPress={props.onPress}>
+                <Styled.SubmitButtonLabel>{props.text}</Styled.SubmitButtonLabel>
+            </Styled.SubmitButton>
+        </Styled.SubmitButtonContainer>
     )
 }
