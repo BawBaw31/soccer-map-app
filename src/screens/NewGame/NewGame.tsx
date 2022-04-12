@@ -1,9 +1,10 @@
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import React, { useState } from 'react'
+import DateTimePicker, { Event } from '@react-native-community/datetimepicker'
 import { CustomButton } from '../../components/formField/FormField'
 import * as StyledForm from '../../components/formField/FormField.styles'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import { Colors } from '../../styles'
+import { StyleSheet, View, Text } from 'react-native'
 
 type DatePickerMode = 'date' | 'time'
 
@@ -13,7 +14,7 @@ export const NewGame = () => {
     const [show, setShow] = useState(false)
     const [mode, setMode] = useState<DatePickerMode>('date')
 
-    const onChange = (event: DateTimePickerEvent, selectedDate: Date | undefined) => {
+    const onChange = (event: Event, selectedDate?: Date) => {
         setShow(false)
         selectedDate && setDate(selectedDate)
     }
@@ -39,20 +40,22 @@ export const NewGame = () => {
         <TitleLayout title="New Game">
             <>
                 <StyledForm.CustomTextInput
-                    placeholder="My game"
+                    placeholder="Name of the game"
                     placeholderTextColor={Colors.gray}
                     value={name}
                     onChangeText={(text) => setName(text)}
                 />
-
-                <CustomButton text="Date" onPress={showDatepicker} />
-                <CustomButton text="Time" onPress={showTimepicker} />
+                <Text style={styles.date}>{date.toLocaleString()}</Text>
+                <View style={styles.datePickerContainer}>
+                    <CustomButton text="Date" onPress={showDatepicker} />
+                    <CustomButton text="Time" onPress={showTimepicker} />
+                </View>
                 {show && (
                     <DateTimePicker
                         value={date}
                         display="spinner"
                         mode={mode}
-                        is24Hour={true}
+                        themeVariant="dark"
                         onChange={onChange}
                     />
                 )}
@@ -62,3 +65,12 @@ export const NewGame = () => {
         </TitleLayout>
     )
 }
+
+const styles = StyleSheet.create({
+    datePickerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        margin: 16,
+    },
+    date: { textAlign: 'center', margin: 16, color: Colors.white },
+})
