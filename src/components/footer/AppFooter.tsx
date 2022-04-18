@@ -7,15 +7,25 @@ import * as Styled from './AppFooter.styles'
 import { RouteParams } from '../../navigation/RootNavigator'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase/firebase-setup'
 
 export const AppFooter = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
+    const Logout = () => {
+        signOut(auth)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                alert(err)
+            })
+    }
     return (
         <Styled.AppFooterContainer>
             <TouchableOpacity
                 onPress={() => {
                     console.log('bell clicked')
-                    // navigation.navigate('')
                 }}
             >
                 <BellIcon />
@@ -27,8 +37,7 @@ export const AppFooter = () => {
 
             <TouchableOpacity
                 onPress={() => {
-                    console.log('user clicked')
-                    // navigation.navigate('')
+                    Logout()
                 }}
             >
                 <UserIcon />
