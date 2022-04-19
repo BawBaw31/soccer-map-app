@@ -46,7 +46,7 @@ export const NewGame = () => {
             updatedData[`games/${uuid}`] = {
                 id: uuid,
                 name: name,
-                date: date.toString(),
+                date: `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`,
                 players: {
                     [auth.currentUser?.uid]: {
                         id: auth.currentUser?.uid,
