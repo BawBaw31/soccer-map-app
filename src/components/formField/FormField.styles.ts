@@ -1,11 +1,11 @@
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
-import { Colors, Font } from '../../styles/'
+import { Colors, Font, Spacing } from '../../styles/'
 
 export const SubmitButton = styled(TouchableOpacity)`
     background-color: ${Colors.primary};
     border-radius: 50px;
-    padding: 16px 32px;
+    padding: ${Spacing.l} ${Spacing.xxl};
 `
 
 export const SubmitButtonLabel = styled(Text)`
@@ -20,13 +20,17 @@ export const SubmitButtonContainer = styled(View)`
     align-items: center;
 `
 
-export const InputLabel = styled(Text)``
-
 export const CustomTextInput = styled(TextInput)`
-    margin-bottom: 16px;
+    margin-bottom: ${Spacing.l};
     font-size: 20px;
     font-family: ${Font.montserratRegular};
     color: ${Colors.white};
     border-bottom-color: ${Colors.white};
     border-bottom-width: 1px;
+`
+
+export const FormLabel = styled(Text)`
+    color: ${Colors.white};
+    font-size: 20px;
+    font-family: ${Font.montserratRegular};
 `

@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ref, update } from 'firebase/database'
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 import { uid } from 'uid'
 import { CustomButton } from '../../components/formField/FormField'
 import * as StyledForm from '../../components/formField/FormField.styles'
@@ -11,6 +10,7 @@ import { TitleLayout } from '../../components/layouts/Layouts'
 import { auth, db } from '../../firebase/firebase-setup'
 import { RouteParams } from '../../navigation/RootNavigator'
 import { Colors } from '../../styles'
+import * as Styled from './NewGame.styles'
 
 type DatePickerMode = 'date' | 'time'
 
@@ -79,11 +79,18 @@ export const NewGame = () => {
                     value={name}
                     onChangeText={(text) => setName(text)}
                 />
-                <Text style={styles.date}>{date.toLocaleString()}</Text>
-                <View style={styles.datePickerContainer}>
+                <Styled.DatePickerContainer>
+                    <StyledForm.FormLabel>{date.toLocaleDateString()}</StyledForm.FormLabel>
                     <CustomButton text="Date" onPress={showDatepicker} />
+                </Styled.DatePickerContainer>
+
+                <Styled.DatePickerContainer>
+                    <StyledForm.FormLabel>
+                        {date.toLocaleTimeString([], { timeStyle: 'short' })}
+                    </StyledForm.FormLabel>
                     <CustomButton text="Time" onPress={showTimepicker} />
-                </View>
+                </Styled.DatePickerContainer>
+
                 {show && (
                     <DateTimePicker
                         value={date}
@@ -93,18 +100,8 @@ export const NewGame = () => {
                         onChange={onChange}
                     />
                 )}
-
                 <CustomButton text="Submit" onPress={onSubmit} />
             </>
         </TitleLayout>
     )
 }
-
-const styles = StyleSheet.create({
-    datePickerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        margin: 16,
-    },
-    date: { textAlign: 'center', margin: 16, color: Colors.white },
-})
