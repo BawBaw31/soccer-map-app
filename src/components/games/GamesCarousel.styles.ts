@@ -1,6 +1,6 @@
-import styled from 'styled-components'
 import { Text, View } from 'react-native'
-import { Font, Colors, Percentage } from '../../styles'
+import styled from 'styled-components'
+import { Colors, Font } from '../../styles'
 
 export const GamesTitle = styled(Text)`
     margin-bottom: 8px;

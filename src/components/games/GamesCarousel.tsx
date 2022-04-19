@@ -1,8 +1,8 @@
-import { getDatabase, onValue, ref } from 'firebase/database'
+import { onValue, ref } from 'firebase/database'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Dimensions, TouchableOpacity } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
-import { auth } from '../../firebase/firebase-setup'
+import { auth, db } from '../../firebase/firebase-setup'
 import * as Styled from './GamesCarousel.styles'
 
 export const Games = () => {
@@ -13,29 +13,32 @@ export const Games = () => {
     const ITEM_WIDTH = SLIDE_WIDTH + ITEM_HORIZONTAL_MARGIN * 4
     const SLIDER_WIDTH = viewportWidth
 
-    const [games, setGames] = useState<any>([])
+    const [games, setGames] = useState<any[]>([])
 
     useEffect(() => {
-        const db = getDatabase()
-        const gamesRef = ref(db, 'players/' + auth.currentUser?.uid + '/games')
         const ac = new AbortController()
-        onValue(gamesRef, (snapshot) => {
-            setGames([])
-            snapshot.val().forEach((gameId: string) => {
-                const gameRef = ref(db, 'games/' + gameId)
-                onValue(gameRef, (snapshot) => {
-                    setGames((games: any) => [...games, snapshot.val()])
-                })
+        try {
+            onValue(ref(db, `players/${auth.currentUser?.uid}/games`), (snapshot) => {
+                setGames([])
+                const data = snapshot.val()
+                if (data !== null) {
+                    Object.values(data).map((game: any) => {
+                        setGames((oldGames: any) => [...oldGames, game])
+                    })
+                }
             })
-        })
+        } catch (e) {
+            console.log('Error on getting data : ' + e)
+        }
         return () => ac.abort()
     }, [])
 
-    const renderItem = useCallback(({ item, index }) => {
+    const renderItem = useCallback(({ item }) => {
+        if (!item.id || !item.name || !item.date) return null
         return (
             <TouchableOpacity
                 onPress={() => {
-                    console.log(`item with index ${index} clicked`)
+                    console.log(`item with index ${item.id} clicked`)
                 }}
             >
                 <Styled.ItemContainer>
@@ -47,7 +50,7 @@ export const Games = () => {
         )
     }, [])
 
-    return (
+    return games.length ? (
         <Styled.GamesContainer>
             <Styled.GamesTitle>My Games</Styled.GamesTitle>
             <Carousel
@@ -61,5 +64,7 @@ export const Games = () => {
                 renderItem={renderItem}
             />
         </Styled.GamesContainer>
+    ) : (
+        <></>
     )
 }

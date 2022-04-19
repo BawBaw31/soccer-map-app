@@ -7,12 +7,14 @@ import { Home } from '../screens/Home/Home'
 import { Loading } from '../screens/Loading/Loading'
 import { Register } from '../screens/Register/Register'
 import { SignIn } from '../screens/SignIn/SignIn'
+import { NewGame } from '../screens/NewGame/NewGame'
 
 export type RouteParams = {
     Home: undefined
     Loading: undefined
     Register: undefined
     SignIn: undefined
+    NewGame: undefined
 }
 
 const Stack = createNativeStackNavigator<RouteParams>()
@@ -45,6 +47,7 @@ export const RootNavigator = () => {
             ) : isSignedIn ? (
                 <Stack.Group>
                     <Stack.Screen name="Home" component={Home} />
+                    <Stack.Screen name="NewGame" component={NewGame} />
                 </Stack.Group>
             ) : (
                 <Stack.Group>
