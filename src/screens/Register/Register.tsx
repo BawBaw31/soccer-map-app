@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { Text, TextInput, Button } from 'react-native'
-import { DisconnectedLayout } from '../../components/layouts/Layouts'
-import { auth } from '../../firebase/firebase-setup'
-import { getDatabase, ref, set } from 'firebase/database'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { RouteParams } from '../../navigation/RootNavigator'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { ref, set } from 'firebase/database'
+import React, { useState } from 'react'
+import { Button, Text, TextInput } from 'react-native'
+import { DisconnectedLayout } from '../../components/layouts/Layouts'
+import { auth, db } from '../../firebase/firebase-setup'
+import { RouteParams } from '../../navigation/RootNavigator'
 
 export const Register = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
@@ -16,10 +16,8 @@ export const Register = () => {
     const RegisterUser = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((res) => {
-                const db = getDatabase()
                 const reference = ref(db, 'players/' + res.user.uid)
                 set(reference, {
-                    games: [1],
                     mark: 0,
                 })
             })

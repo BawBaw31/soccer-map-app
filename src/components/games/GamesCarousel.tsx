@@ -17,7 +17,6 @@ export const Games = () => {
 
     useEffect(() => {
         const ac = new AbortController()
-
         try {
             onValue(ref(db, `players/${auth.currentUser?.uid}/games`), (snapshot) => {
                 setGames([])
@@ -35,6 +34,7 @@ export const Games = () => {
     }, [])
 
     const renderItem = useCallback(({ item }) => {
+        if (!item.id || !item.name || !item.date) return null
         return (
             <TouchableOpacity
                 onPress={() => {
@@ -50,7 +50,7 @@ export const Games = () => {
         )
     }, [])
 
-    return (
+    return games.length ? (
         <Styled.GamesContainer>
             <Styled.GamesTitle>My Games</Styled.GamesTitle>
             <Carousel
@@ -64,5 +64,7 @@ export const Games = () => {
                 renderItem={renderItem}
             />
         </Styled.GamesContainer>
+    ) : (
+        <></>
     )
 }
