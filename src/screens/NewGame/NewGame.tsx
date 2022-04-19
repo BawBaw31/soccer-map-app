@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ref, update } from 'firebase/database'
 import React, { useState } from 'react'
+import { ScrollView } from 'react-native'
 import { uid } from 'uid'
 import { CustomButton } from '../../components/formField/FormField'
 import * as StyledForm from '../../components/formField/FormField.styles'
@@ -72,7 +73,7 @@ export const NewGame = () => {
 
     return (
         <TitleLayout title="New Game">
-            <>
+            <ScrollView>
                 <StyledForm.CustomTextInput
                     placeholder="Name of the game"
                     placeholderTextColor={Colors.gray}
@@ -101,7 +102,7 @@ export const NewGame = () => {
                     />
                 )}
                 <CustomButton text="Submit" onPress={onSubmit} />
-            </>
+            </ScrollView>
         </TitleLayout>
     )
 }
