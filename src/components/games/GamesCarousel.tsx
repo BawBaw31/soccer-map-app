@@ -8,7 +8,7 @@ import * as Styled from './GamesCarousel.styles'
 export const Games = () => {
     // Carousel config
     const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
-    const SLIDE_WIDTH = Math.round(viewportWidth / 5)
+    const SLIDE_WIDTH = Math.round(viewportWidth / 2)
     const ITEM_HORIZONTAL_MARGIN = 16
     const ITEM_WIDTH = SLIDE_WIDTH + ITEM_HORIZONTAL_MARGIN * 4
     const SLIDER_WIDTH = viewportWidth
