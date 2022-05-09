@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Text } from 'react-native'
 import { Marker, Region } from 'react-native-maps'
 import * as Location from 'expo-location'
@@ -9,20 +9,20 @@ export const Map = () => {
     const [errorMsg, setErrorMsg] = useState<string>('')
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
-    useEffect(() => {
-        const ac = new AbortController()
-        ;(async () => {
-            const { status } = await Location.requestForegroundPermissionsAsync()
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied')
-                return
-            }
-            const location = await Location.getCurrentPositionAsync({})
-            setIsLoaded(true)
-            setLocation(location)
-        })()
-        return () => ac.abort()
+    const checkLocationPermission = useCallback(async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync()
+        if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied')
+            return
+        }
+        const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Low })
+        setLocation(location)
+        setIsLoaded(true)
     }, [])
+
+    useEffect(() => {
+        checkLocationPermission()
+    }, [checkLocationPermission])
 
     let latitudeValue = 0
     let longitudeValue = 0
@@ -43,10 +43,11 @@ export const Map = () => {
         <Styled.MapContainer>
             <Styled.MapTitle>Nearby stadiums</Styled.MapTitle>
             {isLoaded ? (
-                <Styled.Map region={geolocation}>
+                <Styled.Map region={geolocation} provider="google">
                     {latitudeValue && longitudeValue ? (
                         <Marker
                             coordinate={{ latitude: latitudeValue, longitude: longitudeValue }}
+                            tracksViewChanges={false}
                         />
                     ) : null}
                 </Styled.Map>
