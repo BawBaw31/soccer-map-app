@@ -1,9 +1,11 @@
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { ref, update } from 'firebase/database'
-import React, { useState } from 'react'
-import { ScrollView } from 'react-native'
+import { get, ref, update } from 'firebase/database'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Dimensions, ScrollView } from 'react-native'
+import { AutocompleteDropdown as CityStadiumAutocomplete } from 'react-native-autocomplete-dropdown'
+import Feather from 'react-native-vector-icons/Feather'
 import { uid } from 'uid'
 import { CustomButton } from '../../components/formField/FormField'
 import * as StyledForm from '../../components/formField/FormField.styles'
@@ -13,6 +15,8 @@ import { RouteParams } from '../../navigation/RootNavigator'
 import { Colors } from '../../styles'
 import * as Styled from './NewGame.styles'
 
+Feather.loadFont()
+
 type DatePickerMode = 'date' | 'time'
 
 export const NewGame = () => {
@@ -21,6 +25,40 @@ export const NewGame = () => {
     const [date, setDate] = useState(new Date())
     const [show, setShow] = useState(false)
     const [mode, setMode] = useState<DatePickerMode>('date')
+    const [suggestionsList, setSuggestionsList] = useState<any[]>([])
+    const [selectedItem, setSelectedItem] = useState<any>(null)
+
+    useEffect(() => {
+        console.log('Suggestion list :', suggestionsList)
+        console.log('selected item :', selectedItem)
+    }, [suggestionsList, selectedItem])
+
+    const getSuggestions = useCallback(async (q) => {
+        const filterToken = q.toLowerCase()
+        console.log('getSuggestions', q)
+
+        if (typeof q !== 'string' || q.length < 3) {
+            setSuggestionsList([])
+            return
+        }
+
+        const data = await get(ref(db, 'stadiums'))
+
+        setSuggestionsList([])
+        if (data !== null) {
+            Object.values(data.val())
+                .filter((item: any) => item.address.streetName.toLowerCase().includes(filterToken))
+                .map((suggestion: any) => {
+                    console.log(suggestion)
+
+                    const formattedSuggestion = {
+                        ...suggestion,
+                        title: `${suggestion.address.streetNumber} ${suggestion.address.streetName}, ${suggestion.address.city}`,
+                    }
+                    setSuggestionsList((suggestion: any) => [...suggestion, formattedSuggestion])
+                })
+        }
+    }, [])
 
     const onChange = (event: Event, selectedDate?: Date) => {
         setShow(false)
@@ -54,11 +92,13 @@ export const NewGame = () => {
                         name: auth.currentUser?.displayName,
                     },
                 },
+                stadium: selectedItem,
             }
             updatedData[`players/${auth.currentUser?.uid}/games/${uuid}`] = {
                 id: uuid,
                 name: name,
                 date: `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`,
+                stadium: selectedItem,
             }
             try {
                 await update(ref(db), updatedData)
@@ -101,6 +141,41 @@ export const NewGame = () => {
                         onChange={onChange}
                     />
                 )}
+
+                <CityStadiumAutocomplete
+                    suggestionsListMaxHeight={Dimensions.get('window').height * 0.4}
+                    clearOnFocus={false}
+                    closeOnBlur={false}
+                    closeOnSubmit={false}
+                    dataSet={suggestionsList}
+                    onChangeText={getSuggestions}
+                    onSelectItem={(item) => {
+                        item && setSelectedItem(item)
+                    }}
+                    textInputProps={{
+                        placeholder: 'Type the stadium address',
+                        autoCorrect: false,
+                        autoCapitalize: 'none',
+                        style: {
+                            borderRadius: 25,
+                            backgroundColor: '#383b42',
+                            color: '#fff',
+                            paddingLeft: 18,
+                        },
+                    }}
+                    rightButtonsContainerStyle={{
+                        right: 8,
+                        height: 30,
+                        alignSelf: 'center',
+                    }}
+                    inputContainerStyle={{
+                        backgroundColor: '#383b42',
+                        borderRadius: 25,
+                    }}
+                    suggestionsListContainerStyle={{
+                        backgroundColor: '#fff',
+                    }}
+                />
                 <CustomButton text="Submit" onPress={onSubmit} />
             </ScrollView>
         </TitleLayout>
