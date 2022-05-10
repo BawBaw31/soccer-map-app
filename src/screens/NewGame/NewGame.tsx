@@ -5,7 +5,6 @@ import { get, ref, update } from 'firebase/database'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Dimensions, ScrollView } from 'react-native'
 import { AutocompleteDropdown as CityStadiumAutocomplete } from 'react-native-autocomplete-dropdown'
-import Feather from 'react-native-vector-icons/Feather'
 import { uid } from 'uid'
 import { CustomButton } from '../../components/formField/FormField'
 import * as StyledForm from '../../components/formField/FormField.styles'
@@ -14,8 +13,6 @@ import { auth, db } from '../../firebase/firebase-setup'
 import { RouteParams } from '../../navigation/RootNavigator'
 import { Colors } from '../../styles'
 import * as Styled from './NewGame.styles'
-
-Feather.loadFont()
 
 type DatePickerMode = 'date' | 'time'
 
@@ -75,6 +72,7 @@ export const NewGame = () => {
             const updatedData: any = {}
             updatedData[`games/${uuid}`] = {
                 id: uuid,
+                // TODO: add validation
                 name: name,
                 date: `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`,
                 players: {
@@ -145,8 +143,6 @@ export const NewGame = () => {
                     }}
                     textInputProps={{
                         placeholder: 'Type the stadium address',
-                        autoCorrect: false,
-                        autoCapitalize: 'none',
                         style: {
                             borderRadius: 25,
                             backgroundColor: '#383b42',
