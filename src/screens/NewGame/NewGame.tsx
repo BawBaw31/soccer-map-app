@@ -28,15 +28,8 @@ export const NewGame = () => {
     const [suggestionsList, setSuggestionsList] = useState<any[]>([])
     const [selectedItem, setSelectedItem] = useState<any>(null)
 
-    useEffect(() => {
-        console.log('Suggestion list :', suggestionsList)
-        console.log('selected item :', selectedItem)
-    }, [suggestionsList, selectedItem])
-
     const getSuggestions = useCallback(async (q) => {
         const filterToken = q.toLowerCase()
-        console.log('getSuggestions', q)
-
         if (typeof q !== 'string' || q.length < 3) {
             setSuggestionsList([])
             return
@@ -49,8 +42,6 @@ export const NewGame = () => {
             Object.values(data.val())
                 .filter((item: any) => item.address.streetName.toLowerCase().includes(filterToken))
                 .map((suggestion: any) => {
-                    console.log(suggestion)
-
                     const formattedSuggestion = {
                         ...suggestion,
                         title: `${suggestion.address.streetNumber} ${suggestion.address.streetName}, ${suggestion.address.city}`,
