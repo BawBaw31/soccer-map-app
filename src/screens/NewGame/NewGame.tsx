@@ -2,7 +2,7 @@ import DateTimePicker, { Event } from '@react-native-community/datetimepicker'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { get, ref, update } from 'firebase/database'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Dimensions, ScrollView } from 'react-native'
 import { AutocompleteDropdown as CityStadiumAutocomplete } from 'react-native-autocomplete-dropdown'
 import { uid } from 'uid'
@@ -22,28 +22,31 @@ export const NewGame = () => {
     const [date, setDate] = useState(new Date())
     const [show, setShow] = useState(false)
     const [mode, setMode] = useState<DatePickerMode>('date')
-    const [suggestionsList, setSuggestionsList] = useState<any[]>([])
+    const [suggestions, setSuggestions] = useState<any[]>([])
     const [selectedItem, setSelectedItem] = useState<any>(null)
 
-    const getSuggestions = useCallback(async (q) => {
+    const getAutocomplete = useCallback(async (q) => {
         const filterToken = q.toLowerCase()
         if (typeof q !== 'string' || q.length < 3) {
-            setSuggestionsList([])
+            setSuggestions([])
             return
         }
 
         const data = await get(ref(db, 'stadiums'))
 
-        setSuggestionsList([])
+        setSuggestions([])
         if (data !== null) {
             Object.values(data.val())
-                .filter((item: any) => item.address.streetName.toLowerCase().includes(filterToken))
+                .filter((item: any) => {
+                    const rawTitle = `${item.address.streetNumber} ${item.address.streetName}, ${item.address.city}`
+                    return rawTitle.toLowerCase().includes(filterToken)
+                })
                 .map((suggestion: any) => {
                     const formattedSuggestion = {
                         ...suggestion,
                         title: `${suggestion.address.streetNumber} ${suggestion.address.streetName}, ${suggestion.address.city}`,
                     }
-                    setSuggestionsList((suggestion: any) => [...suggestion, formattedSuggestion])
+                    setSuggestions((suggestion: any) => [...suggestion, formattedSuggestion])
                 })
         }
     }, [])
@@ -87,7 +90,6 @@ export const NewGame = () => {
                 id: uuid,
                 name: name,
                 date: `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`,
-                stadium: selectedItem,
             }
             try {
                 await update(ref(db), updatedData)
@@ -136,8 +138,8 @@ export const NewGame = () => {
                     clearOnFocus={false}
                     closeOnBlur={false}
                     closeOnSubmit={false}
-                    dataSet={suggestionsList}
-                    onChangeText={getSuggestions}
+                    dataSet={suggestions}
+                    onChangeText={getAutocomplete}
                     onSelectItem={(item) => {
                         item && setSelectedItem(item)
                     }}
@@ -158,6 +160,7 @@ export const NewGame = () => {
                     inputContainerStyle={{
                         backgroundColor: '#383b42',
                         borderRadius: 25,
+                        marginBottom: 15,
                     }}
                     suggestionsListContainerStyle={{
                         backgroundColor: '#fff',
