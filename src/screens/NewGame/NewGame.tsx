@@ -11,7 +11,7 @@ import * as StyledForm from '../../components/formField/FormField.styles'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import { auth, db } from '../../firebase/firebase-setup'
 import { RouteParams } from '../../navigation/RootNavigator'
-import { Colors } from '../../styles'
+import { Colors, Spacing } from '../../styles'
 import * as Styled from './NewGame.styles'
 
 type DatePickerMode = 'date' | 'time'
@@ -145,11 +145,13 @@ export const NewGame = () => {
                     }}
                     textInputProps={{
                         placeholder: 'Type the stadium address',
+                        placeholderTextColor: Colors.gray,
                         style: {
                             borderRadius: 25,
-                            backgroundColor: '#383b42',
-                            color: '#fff',
-                            paddingLeft: 18,
+                            backgroundColor: Colors.backgroundBis,
+                            color: Colors.white,
+                            paddingLeft: Spacing.flat_l,
+                            fontSize: 20,
                         },
                     }}
                     rightButtonsContainerStyle={{
@@ -158,12 +160,12 @@ export const NewGame = () => {
                         alignSelf: 'center',
                     }}
                     inputContainerStyle={{
-                        backgroundColor: '#383b42',
+                        backgroundColor: Colors.backgroundBis,
                         borderRadius: 25,
-                        marginBottom: 15,
+                        marginBottom: Spacing.flat_l,
                     }}
                     suggestionsListContainerStyle={{
-                        backgroundColor: '#fff',
+                        backgroundColor: Colors.white,
                     }}
                 />
                 <CustomButton text="Submit" onPress={onSubmit} />
