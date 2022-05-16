@@ -45,7 +45,9 @@ export const StadiumScreen = (props: StadiumScreenProps) => {
                         ' ' +
                         stadium.address?.streetNumber +
                         ' ' +
-                        stadium.address?.streetName
+                        stadium.address?.streetName +
+                        ' ' +
+                        stadium.address?.postalCode
                     }
                 />
             </ScrollView>
