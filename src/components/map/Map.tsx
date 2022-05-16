@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Text } from 'react-native'
+import { Text, Image } from 'react-native'
 import { Marker, Region } from 'react-native-maps'
 import * as Location from 'expo-location'
 import * as Styled from './Map.styles'
@@ -78,7 +78,12 @@ export const Map = () => {
                                 latitude: stadium.geocode.lat,
                                 longitude: stadium.geocode.long,
                             }}
-                        />
+                        >
+                            <Image
+                                source={require('../../assets/markers/football-field.png')}
+                                style={{ height: 30, width: 25 }}
+                            />
+                        </Marker>
                     ))}
                 </Styled.Map>
             ) : (
