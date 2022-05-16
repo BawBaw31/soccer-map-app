@@ -11,6 +11,7 @@ interface StadiumScreenProps {
 
 export const StadiumScreen = (props: StadiumScreenProps) => {
     const [games, setGames] = useState<any[]>([])
+    const [stadium, setStadium] = useState<any>({})
 
     useEffect(() => {
         const ac = new AbortController()
@@ -24,6 +25,10 @@ export const StadiumScreen = (props: StadiumScreenProps) => {
                     })
                 }
             })
+            onValue(ref(db, `stadiums/${props.route.params.id}`), (snapshot) => {
+                const data = snapshot.val()
+                setStadium(data)
+            })
         } catch (e) {
             console.log('Error on getting data : ' + e)
         }
@@ -32,7 +37,17 @@ export const StadiumScreen = (props: StadiumScreenProps) => {
     return (
         <TitleLayout title="Stadium screen">
             <ScrollView>
-                <Games games={games} title="Games list in this stadium" />
+                <Games
+                    games={games}
+                    title={
+                        'Games in ' +
+                        stadium.address?.city +
+                        ' ' +
+                        stadium.address?.streetNumber +
+                        ' ' +
+                        stadium.address?.streetName
+                    }
+                />
             </ScrollView>
         </TitleLayout>
     )

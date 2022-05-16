@@ -1,6 +1,9 @@
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { useCallback } from 'react'
 import { Dimensions, TouchableOpacity } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
+import { RouteParams } from '../../navigation/RootNavigator'
 import * as Styled from './GamesCarousel.styles'
 
 interface GamesProps {
@@ -9,6 +12,8 @@ interface GamesProps {
 }
 
 export const Games = (props: GamesProps) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
+
     // Carousel config
     const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
     const SLIDE_WIDTH = Math.round(viewportWidth / 2)
@@ -21,7 +26,7 @@ export const Games = (props: GamesProps) => {
         return (
             <TouchableOpacity
                 onPress={() => {
-                    console.log(`item with index ${item.id} clicked`)
+                    navigation.navigate('GameScreen', { id: item.id })
                 }}
             >
                 <Styled.ItemContainer>
