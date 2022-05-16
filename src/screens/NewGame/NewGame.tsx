@@ -91,6 +91,11 @@ export const NewGame = () => {
                 name: name,
                 date: `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`,
             }
+            updatedData[`stadiums/${selectedItem.id}/games/${uuid}`] = {
+                id: uuid,
+                name: name,
+                date: `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`,
+            }
             try {
                 await update(ref(db), updatedData)
                 navigation.navigate('Home')
