@@ -3,11 +3,18 @@ import { Text } from 'react-native'
 import { Marker, Region } from 'react-native-maps'
 import * as Location from 'expo-location'
 import * as Styled from './Map.styles'
+import { onValue, ref } from 'firebase/database'
+import { useNavigation } from '@react-navigation/native'
+import { db } from '../../firebase/firebase-setup'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RouteParams } from '../../navigation/RootNavigator'
 
 export const Map = () => {
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
     const [location, setLocation] = useState<Location.LocationObject | null>(null)
     const [errorMsg, setErrorMsg] = useState<string>('')
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
+    const [stadiums, setStadiums] = useState<any[]>([])
 
     const checkLocationPermission = useCallback(async () => {
         const { status } = await Location.requestForegroundPermissionsAsync()
@@ -21,6 +28,17 @@ export const Map = () => {
     }, [])
 
     useEffect(() => {
+        try {
+            onValue(ref(db, 'stadiums/'), (snapshot: any) => {
+                setStadiums([])
+                const data = snapshot.val()
+                Object.values(data).map((stadium: any) => {
+                    setStadiums((oldStadiums: any) => [...oldStadiums, stadium])
+                })
+            })
+        } catch (e) {
+            console.log('Error on getting data : ' + e)
+        }
         checkLocationPermission()
     }, [checkLocationPermission])
 
@@ -50,6 +68,18 @@ export const Map = () => {
                             tracksViewChanges={false}
                         />
                     ) : null}
+                    {stadiums.map((stadium) => (
+                        <Marker
+                            onPress={() => {
+                                navigation.navigate('StadiumScreen', { id: stadium.id })
+                            }}
+                            key={stadium.id}
+                            coordinate={{
+                                latitude: stadium.geocode.lat,
+                                longitude: stadium.geocode.long,
+                            }}
+                        />
+                    ))}
                 </Styled.Map>
             ) : (
                 <Text>Loading...</Text>
