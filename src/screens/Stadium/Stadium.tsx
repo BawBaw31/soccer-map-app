@@ -5,11 +5,11 @@ import { onValue, ref } from 'firebase/database'
 import { db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 import { Games } from '../../components/games/GamesCarousel'
-interface StadiumScreenProps {
+interface StadiumProps {
     route: any
 }
 
-export const StadiumScreen = (props: StadiumScreenProps) => {
+export const Stadium = (props: StadiumProps) => {
     const [games, setGames] = useState<any[]>([])
     const [stadium, setStadium] = useState<any>({})
 

@@ -71,7 +71,7 @@ export const Map = () => {
                     {stadiums.map((stadium) => (
                         <Marker
                             onPress={() => {
-                                navigation.navigate('StadiumScreen', { id: stadium.id })
+                                navigation.navigate('Stadium', { id: stadium.id })
                             }}
                             key={stadium.id}
                             coordinate={{

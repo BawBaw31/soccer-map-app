@@ -5,11 +5,11 @@ import { onValue, ref } from 'firebase/database'
 import { db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 
-interface GameScreenProps {
+interface GameProps {
     route: any
 }
 
-export const GameScreen = (props: GameScreenProps) => {
+export const Game = (props: GameProps) => {
     const [game, setGame] = useState<any>({})
 
     useEffect(() => {
