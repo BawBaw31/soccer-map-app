@@ -1,11 +1,19 @@
-import { onValue, ref } from 'firebase/database'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React, { useCallback } from 'react'
 import { Dimensions, TouchableOpacity } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
-import { auth, db } from '../../firebase/firebase-setup'
+import { RouteParams } from '../../navigation/RootNavigator'
 import * as Styled from './GamesCarousel.styles'
 
-export const Games = () => {
+interface GamesProps {
+    games: any[]
+    title: string
+}
+
+export const Games = (props: GamesProps) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
+
     // Carousel config
     const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
     const SLIDE_WIDTH = Math.round(viewportWidth / 2)
@@ -13,32 +21,12 @@ export const Games = () => {
     const ITEM_WIDTH = SLIDE_WIDTH + ITEM_HORIZONTAL_MARGIN * 4
     const SLIDER_WIDTH = viewportWidth
 
-    const [games, setGames] = useState<any[]>([])
-
-    useEffect(() => {
-        const ac = new AbortController()
-        try {
-            onValue(ref(db, `players/${auth.currentUser?.uid}/games`), (snapshot) => {
-                setGames([])
-                const data = snapshot.val()
-                if (data !== null) {
-                    Object.values(data).map((game: any) => {
-                        setGames((oldGames: any) => [...oldGames, game])
-                    })
-                }
-            })
-        } catch (e) {
-            console.log('Error on getting data : ' + e)
-        }
-        return () => ac.abort()
-    }, [])
-
     const renderItem = useCallback(({ item }) => {
         if (!item.id || !item.name || !item.date) return null
         return (
             <TouchableOpacity
                 onPress={() => {
-                    console.log(`item with index ${item.id} clicked`)
+                    navigation.navigate('Game', { game: item })
                 }}
             >
                 <Styled.ItemContainer>
@@ -50,9 +38,9 @@ export const Games = () => {
         )
     }, [])
 
-    return games.length ? (
+    return props.games.length ? (
         <Styled.GamesContainer>
-            <Styled.GamesTitle>My Games</Styled.GamesTitle>
+            <Styled.GamesTitle>{props.title}</Styled.GamesTitle>
             <Carousel
                 sliderWidth={SLIDER_WIDTH}
                 sliderHeight={viewportHeight}
@@ -60,7 +48,7 @@ export const Games = () => {
                 activeSlideAlignment={'start'}
                 inactiveSlideScale={1}
                 inactiveSlideOpacity={1}
-                data={games}
+                data={props.games}
                 renderItem={renderItem}
             />
         </Styled.GamesContainer>

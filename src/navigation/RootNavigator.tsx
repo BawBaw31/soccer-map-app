@@ -8,7 +8,8 @@ import { Loading } from '../screens/Loading/Loading'
 import { Register } from '../screens/Register/Register'
 import { SignIn } from '../screens/SignIn/SignIn'
 import { NewGame } from '../screens/NewGame/NewGame'
-import { StadiumScreen } from '../screens/StadiumScreen/StadiumScreen'
+import { Stadium } from '../screens/Stadium/Stadium'
+import { Game } from '../screens/Game/Game'
 
 export type RouteParams = {
     Home: undefined
@@ -16,7 +17,8 @@ export type RouteParams = {
     Register: undefined
     SignIn: undefined
     NewGame: undefined
-    StadiumScreen: { id: number }
+    Stadium: { stadium: any }
+    Game: { game: any }
 }
 
 const Stack = createNativeStackNavigator<RouteParams>()
@@ -50,7 +52,8 @@ export const RootNavigator = () => {
                 <Stack.Group>
                     <Stack.Screen name="Home" component={Home} />
                     <Stack.Screen name="NewGame" component={NewGame} />
-                    <Stack.Screen name="StadiumScreen" component={StadiumScreen} />
+                    <Stack.Screen name="Stadium" component={Stadium} />
+                    <Stack.Screen name="Game" component={Game} />
                 </Stack.Group>
             ) : (
                 <Stack.Group>
