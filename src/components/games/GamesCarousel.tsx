@@ -26,7 +26,7 @@ export const Games = (props: GamesProps) => {
         return (
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate('Game', { id: item.id })
+                    navigation.navigate('Game', { game: item })
                 }}
             >
                 <Styled.ItemContainer>

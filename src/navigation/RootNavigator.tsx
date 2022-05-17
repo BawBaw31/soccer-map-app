@@ -17,8 +17,8 @@ export type RouteParams = {
     Register: undefined
     SignIn: undefined
     NewGame: undefined
-    Stadium: { id: number }
-    Game: { id: number }
+    Stadium: { stadium: any }
+    Game: { game: any }
 }
 
 const Stack = createNativeStackNavigator<RouteParams>()
