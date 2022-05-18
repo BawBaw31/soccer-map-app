@@ -2,7 +2,7 @@ import { onValue, ref } from 'firebase/database'
 import React, { useState, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { db } from '../../firebase/firebase-setup'
-
+import * as Styled from './PlayersList.styles'
 interface PlayerListProps {
     gameId: number
 }
@@ -66,26 +66,9 @@ export const PlayerList = (props: PlayerListProps) => {
         <View>
             {playerList ? (
                 playerList.map((player: any) => (
-                    <View
-                        key={player.id}
-                        style={{
-                            borderBottomWidth: 1,
-                            borderBottomColor: 'white',
-                            borderTopWidth: 1,
-                            borderTopColor: 'white',
-                        }}
-                    >
-                        <Text
-                            key={player.id}
-                            style={{
-                                color: 'white',
-                                paddingTop: 10,
-                                paddingBottom: 10,
-                            }}
-                        >
-                            {player.name}
-                        </Text>
-                    </View>
+                    <Styled.PlayerTile key={player.id}>
+                        <Styled.PlayerName key={player.id}>{player.name}</Styled.PlayerName>
+                    </Styled.PlayerTile>
                 ))
             ) : (
                 <Text>Loading...</Text>
