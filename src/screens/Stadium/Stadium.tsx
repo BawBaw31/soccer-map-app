@@ -24,19 +24,7 @@ export const Stadium = (props: StadiumProps) => {
     return (
         <TitleLayout title="Stadium screen">
             <ScrollView>
-                <Games
-                    games={games}
-                    title={
-                        'Stadium : ' +
-                        props.route.params.stadium.address?.city +
-                        ' ' +
-                        props.route.params.stadium.address?.streetNumber +
-                        ' ' +
-                        props.route.params.stadium.address?.streetName +
-                        ' ' +
-                        props.route.params.stadium.address?.postalCode
-                    }
-                />
+                <Games games={games} title={'Stadium : ' + props.route.params.stadium.title} />
             </ScrollView>
         </TitleLayout>
     )
