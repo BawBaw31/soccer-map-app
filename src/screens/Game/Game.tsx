@@ -1,11 +1,12 @@
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, Linking } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import * as Styled from './Game.styles'
 import { onValue, ref } from 'firebase/database'
 import { db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
-import { PlayerList } from '../../components/playersList/PlayersList'
+import { PlayersList } from '../../components/playersList/PlayersList'
+import { FullWidthButton } from '../../components/fullWidthButton/FullWidthButton'
 
 interface GameProps {
     route: any
@@ -31,7 +32,15 @@ export const Game = (props: GameProps) => {
         <TitleLayout title={props.route.params.game.name}>
             <ScrollView>
                 <Styled.GameStadium>Stadium : {game.stadium?.title}</Styled.GameStadium>
-                <PlayerList gameId={props.route.params.game.id} />
+                <FullWidthButton
+                    text="Go to the game"
+                    onPress={() => {
+                        Linking.openURL(
+                            `https://www.google.com/maps/dir/?api=1&destination=${game.stadium.geocode.lat},${game.stadium.geocode.long}&dir_action=navigate`,
+                        )
+                    }}
+                />
+                <PlayersList gameId={props.route.params.game.id} />
             </ScrollView>
         </TitleLayout>
     )

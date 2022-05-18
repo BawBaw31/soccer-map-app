@@ -8,7 +8,7 @@ export const FullWidthButtonContainer = styled(View)`
     width: 100%;
     background-color: ${Colors.gray};
     border-radius: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 6px;
 `
 
 export const FullWidthButtonLabel = styled(Text)`

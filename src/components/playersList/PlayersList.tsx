@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { db } from '../../firebase/firebase-setup'
 import * as Styled from './PlayersList.styles'
-interface PlayerListProps {
+interface PlayersListProps {
     gameId: number
 }
-export const PlayerList = (props: PlayerListProps) => {
-    const [playerList, setPlayerList] = useState<any>([
+export const PlayersList = (props: PlayersListProps) => {
+    const [playersList, setPlayersList] = useState<any[]>([
         {
             id: 1,
         },
@@ -47,11 +47,11 @@ export const PlayerList = (props: PlayerListProps) => {
                 onValue(ref(db, `games/${props.gameId}/players`), (snapshot) => {
                     const data = snapshot.val()
                     Object.values(data).map((player: any, index) => {
-                        if (playerList.length > index) {
-                            playerList[index].name = player.id
+                        if (playersList.length > index) {
+                            playersList[index].name = player.id
                         }
                     })
-                    setPlayerList(playerList)
+                    setPlayersList(playersList)
                 })
                 return () => ac.abort()
             } catch (e) {
@@ -60,12 +60,13 @@ export const PlayerList = (props: PlayerListProps) => {
         }
 
         fetchData()
-    }, [playerList])
+    }, [playersList])
 
     return (
         <View>
-            {playerList ? (
-                playerList.map((player: any) => (
+            <Styled.PlayersListTitle>Players list</Styled.PlayersListTitle>
+            {playersList ? (
+                playersList.map((player: any) => (
                     <Styled.PlayerTile key={player.id}>
                         <Styled.PlayerName key={player.id}>{player.name}</Styled.PlayerName>
                     </Styled.PlayerTile>

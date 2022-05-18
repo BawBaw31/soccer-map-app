@@ -17,7 +17,9 @@ export const PlayerName = styled(Text)`
     padding-bottom: 10px;
 `
 
-export const MapContainer = styled(View)`
-    height: 200px;
-    margin-bottom: 64px;
+export const PlayersListTitle = styled(Text)`
+    color: ${Colors.white};
+    font-family: ${Font.montserratSemiBold};
+    font-size: 24px;
+    margin-bottom: 12px;
 `
