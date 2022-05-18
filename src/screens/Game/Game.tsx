@@ -31,7 +31,7 @@ export const Game = (props: GameProps) => {
     return (
         <TitleLayout title={props.route.params.game.name}>
             <ScrollView>
-                <Styled.GameStadium>Stadium : {game.stadium?.title}</Styled.GameStadium>
+                <Styled.GameStadium>Game's stadium : {game.stadium?.title}</Styled.GameStadium>
                 <FullWidthButton
                     text="Go to the game"
                     onPress={() => {

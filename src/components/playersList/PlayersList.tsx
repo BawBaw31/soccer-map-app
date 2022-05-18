@@ -61,15 +61,11 @@ export const PlayersList = (props: PlayersListProps) => {
     return (
         <View>
             <Styled.PlayersListTitle>Players list</Styled.PlayersListTitle>
-            {playersList ? (
-                playersList.map((player: any) => (
-                    <Styled.PlayerTile key={player.id}>
-                        <Styled.PlayerName key={player.id}>{player.name}</Styled.PlayerName>
-                    </Styled.PlayerTile>
-                ))
-            ) : (
-                <Text>Loading...</Text>
-            )}
+            {playersList.map((player: any) => (
+                <Styled.PlayerTile key={player.id}>
+                    <Styled.PlayerName key={player.id}>{player.name}</Styled.PlayerName>
+                </Styled.PlayerTile>
+            ))}
         </View>
     )
 }
