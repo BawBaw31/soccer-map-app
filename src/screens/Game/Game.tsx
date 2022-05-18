@@ -5,6 +5,7 @@ import * as Styled from './Game.styles'
 import { onValue, ref } from 'firebase/database'
 import { db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
+import { PlayerList } from '../../components/playersList/PlayersList'
 
 interface GameProps {
     route: any
@@ -30,6 +31,7 @@ export const Game = (props: GameProps) => {
         <TitleLayout title={props.route.params.game.name}>
             <ScrollView>
                 <Styled.GameStadium>Stadium : {game.stadium?.title}</Styled.GameStadium>
+                <PlayerList gameId={props.route.params.game.id} />
             </ScrollView>
         </TitleLayout>
     )
