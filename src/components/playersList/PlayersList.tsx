@@ -41,25 +41,21 @@ export const PlayersList = (props: PlayersListProps) => {
     ])
 
     useEffect(() => {
-        const fetchData = async () => {
-            const ac = new AbortController()
-            try {
-                onValue(ref(db, `games/${props.gameId}/players`), (snapshot) => {
-                    const data = snapshot.val()
-                    Object.values(data).map((player: any, index) => {
-                        if (playersList.length > index) {
-                            playersList[index].name = player.id
-                        }
-                    })
-                    setPlayersList(playersList)
+        const ac = new AbortController()
+        try {
+            onValue(ref(db, `games/${props.gameId}/players`), (snapshot) => {
+                const data = snapshot.val()
+                Object.values(data).map((player: any, index) => {
+                    if (playersList.length > index) {
+                        playersList[index].name = player.id
+                    }
                 })
-                return () => ac.abort()
-            } catch (e) {
-                console.log('Error on getting data : ' + e)
-            }
+                setPlayersList(playersList)
+            })
+            return () => ac.abort()
+        } catch (e) {
+            console.log('Error on getting data : ' + e)
         }
-
-        fetchData()
     }, [playersList])
 
     return (
