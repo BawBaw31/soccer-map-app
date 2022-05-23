@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native'
 import styled from 'styled-components'
-import { Colors, Font } from '../../styles'
+import { Colors, Font, Spacing } from '../../styles'
 
 export const GamesTitle = styled(Text)`
     margin-bottom: 8px;
@@ -10,28 +10,28 @@ export const GamesTitle = styled(Text)`
 `
 
 export const GamesContainer = styled(View)`
-    margin-bottom: 24px;
+    margin-bottom: ${Spacing.xl};
 `
 
 export const ItemTitle = styled(Text)`
     color: ${Colors.white};
     font-size: 24px;
     font-family: ${Font.montserratMedium};
-    margin-bottom: 16px;
+    margin-bottom: ${Spacing.l};
 `
 
 export const ItemText = styled(Text)`
     font-size: 16px;
     color: ${Colors.white};
     font-family: ${Font.montserratRegular};
-    margin-bottom: 8px;
+    margin-bottom: ${Spacing.s};
 `
 
 export const ItemContainer = styled(View)`
     background-color: ${Colors.gray};
     border-radius: 10px;
-    padding-left: 8px;
-    padding-top: 16px;
-    padding: 16px;
-    margin-right: 20px;
+    padding-left: ${Spacing.s};
+    padding-top: ${Spacing.l};
+    padding: ${Spacing.l};
+    margin-right: ${Spacing.xl};
 `

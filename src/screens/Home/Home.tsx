@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native'
 import { Games } from '../../components/games/GamesCarousel'
 import { SearchLayout } from '../../components/layouts/Layouts'
 import { Map } from '../../components/map/Map'
-import { onValue, ref } from 'firebase/database'
+import { off, onValue, ref } from 'firebase/database'
 import { auth, db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 
@@ -11,7 +11,6 @@ export const Home = () => {
     const [games, setGames] = useState<any[]>([])
 
     useEffect(() => {
-        const ac = new AbortController()
         try {
             onValue(ref(db, `players/${auth.currentUser?.uid}/games`), (snapshot) => {
                 setGames([])
@@ -25,7 +24,7 @@ export const Home = () => {
         } catch (e) {
             console.log('Error on getting data : ' + e)
         }
-        return () => ac.abort()
+        return () => off(ref(db, `players/${auth.currentUser?.uid}/games`))
     }, [])
 
     return (

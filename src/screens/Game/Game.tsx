@@ -2,7 +2,7 @@ import React from 'react'
 import { ScrollView, Linking } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import * as Styled from './Game.styles'
-import { onValue, ref } from 'firebase/database'
+import { off, onValue, ref } from 'firebase/database'
 import { db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 import { PlayersList } from '../../components/playersList/PlayersList'
@@ -16,7 +16,6 @@ export const Game = (props: GameProps) => {
     const [game, setGame] = useState<any>({})
 
     useEffect(() => {
-        const ac = new AbortController()
         try {
             onValue(ref(db, `games/${props.route.params.game.id}`), (snapshot) => {
                 const data = snapshot.val()
@@ -25,13 +24,13 @@ export const Game = (props: GameProps) => {
         } catch (e) {
             console.log('Error on getting data : ' + e)
         }
-        return () => ac.abort()
+        return () => off(ref(db, `games/${props.route.params.game.id}`))
     }, [])
 
     return (
         <TitleLayout title={props.route.params.game.name}>
             <ScrollView>
-                <Styled.GameStadium>Game's stadium : {game.stadium?.title}</Styled.GameStadium>
+                <Styled.GameStadium>Stadium : {game.stadium?.title}</Styled.GameStadium>
                 <FullWidthButton
                     text="Go to the game"
                     onPress={() => {

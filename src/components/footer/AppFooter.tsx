@@ -15,7 +15,7 @@ export const AppFooter = () => {
     const Logout = () => {
         signOut(auth)
             .then((res) => {
-                console.log(res)
+                console.log('Logout :', res)
             })
             .catch((err) => {
                 alert(err)
