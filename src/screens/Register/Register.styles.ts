@@ -33,5 +33,5 @@ export const Field = styled(TextInput)`
 `
 
 export const FormContainer = styled(ScrollView)`
-    width: 80%;
+    width: 90%;
 `
