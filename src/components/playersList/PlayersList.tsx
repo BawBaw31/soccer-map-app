@@ -18,7 +18,10 @@ export const PlayersList = (props: PlayersListProps) => {
                 for (let i = 0; i < maxPlayers; i++) {
                     const playerData: any = Object.values(data)[i]
                     if (playerData) {
-                        setPlayers((players: any) => [...players, { id: i, name: playerData.id }])
+                        setPlayers((players: any) => [
+                            ...players,
+                            { id: i, name: playerData.username },
+                        ])
                     } else {
                         setPlayers((players: any) => [...players, { id: i }])
                     }
