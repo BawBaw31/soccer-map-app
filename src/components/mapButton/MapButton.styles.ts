@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { Text, View } from 'react-native'
-import { Colors, Font, Spacing } from '../../styles/'
+import { Colors, Font, Spacing } from '../../styles'
 
-export const FullWidthButtonContainer = styled(View)`
+export const MapButtonContainer = styled(View)`
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -11,7 +11,7 @@ export const FullWidthButtonContainer = styled(View)`
     margin-bottom: ${Spacing.s};
 `
 
-export const FullWidthButtonLabel = styled(Text)`
+export const MapButtonLabel = styled(Text)`
     font-size: 30px;
     padding: ${Spacing.xxl} ${Spacing.l};
     font-family: ${Font.montserratExtrabold};

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Linking, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import { Games } from '../../components/games/GamesCarousel'
-import { FullWidthButton } from '../../components/fullWidthButton/FullWidthButton'
+import { MapButton } from '../../components/mapButton/MapButton'
 
 interface StadiumProps {
     route: any
@@ -25,13 +25,10 @@ export const Stadium = (props: StadiumProps) => {
         <TitleLayout title="Stadium screen">
             <ScrollView>
                 <Games games={games} title={'Stadium : ' + props.route.params.stadium.title} />
-                <FullWidthButton
+                <MapButton
                     text="Go to the stadium"
-                    onPress={() => {
-                        Linking.openURL(
-                            `https://www.google.com/maps/dir/?api=1&destination=${props.route.params.stadium.geocode.lat},${props.route.params.stadium.geocode.long}&dir_action=navigate`,
-                        )
-                    }}
+                    latitude={props.route.params.stadium.geocode.lat}
+                    longitude={props.route.params.stadium.geocode.long}
                 />
             </ScrollView>
         </TitleLayout>
