@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import * as Styled from './Game.styles'
 import { off, onValue, ref } from 'firebase/database'
-import { db } from '../../firebase/firebase-setup'
+import { auth, db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 import { PlayersList } from '../../components/playersList/PlayersList'
 import { MapButton } from '../../components/mapButton/MapButton'
@@ -14,6 +14,7 @@ interface GameProps {
 
 export const Game = (props: GameProps) => {
     const [game, setGame] = useState<any>({})
+    const [isParticipate, setIsParticipate] = useState<boolean>(false)
 
     useEffect(() => {
         try {
@@ -36,6 +37,8 @@ export const Game = (props: GameProps) => {
                     latitude={game.stadium?.geocode?.lat}
                     longitude={game.stadium?.geocode?.long}
                 />
+                {!isParticipate ? <Styled.GameStadium>Partcicipate</Styled.GameStadium> : <></>}
+
                 <PlayersList gameId={props.route.params.game.id} />
             </ScrollView>
         </TitleLayout>
