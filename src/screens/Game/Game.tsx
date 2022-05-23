@@ -25,10 +25,14 @@ export const Game = (props: GameProps) => {
                 setGame(data)
             })
             onValue(ref(db, `games/${props.route.params.game.id}/players`), (snapshot) => {
+                setIsParticipate(false)
                 setPlayers([])
                 const data = snapshot.val()
                 for (let i = 0; i < maxPlayers; i++) {
                     const playerData: any = Object.values(data)[i]
+                    if (playerData?.id === auth.currentUser?.uid) {
+                        setIsParticipate(true)
+                    }
                     if (playerData) {
                         setPlayers((players: any) => [
                             ...players,
