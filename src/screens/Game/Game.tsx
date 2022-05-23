@@ -15,17 +15,38 @@ interface GameProps {
 export const Game = (props: GameProps) => {
     const [game, setGame] = useState<any>({})
     const [isParticipate, setIsParticipate] = useState<boolean>(false)
+    const [players, setPlayers] = useState<any>([])
 
-    useEffect(() => {
+    const maxPlayers = 10
+    useEffect((): any => {
         try {
             onValue(ref(db, `games/${props.route.params.game.id}`), (snapshot) => {
                 const data = snapshot.val()
                 setGame(data)
             })
+            onValue(ref(db, `games/${props.route.params.game.id}/players`), (snapshot) => {
+                setPlayers([])
+                const data = snapshot.val()
+                for (let i = 0; i < maxPlayers; i++) {
+                    const playerData: any = Object.values(data)[i]
+                    if (playerData) {
+                        setPlayers((players: any) => [
+                            ...players,
+                            { id: i, name: playerData.username },
+                        ])
+                    } else {
+                        setPlayers((players: any) => [...players, { id: i }])
+                    }
+                }
+            })
         } catch (e) {
             console.log('Error on getting data : ' + e)
         }
-        return () => off(ref(db, `games/${props.route.params.game.id}`))
+        return () =>
+            Promise.all([
+                off(ref(db, `games/${props.route.params.game.id}`)),
+                off(ref(db, `games/${props.route.params.game.id}/players`)),
+            ])
     }, [])
 
     return (
@@ -39,7 +60,7 @@ export const Game = (props: GameProps) => {
                 />
                 {!isParticipate ? <Styled.GameStadium>Partcicipate</Styled.GameStadium> : <></>}
 
-                <PlayersList gameId={props.route.params.game.id} />
+                <PlayersList players={players} />
             </ScrollView>
         </TitleLayout>
     )
