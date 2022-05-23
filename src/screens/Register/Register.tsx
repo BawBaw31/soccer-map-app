@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { ref, set } from 'firebase/database'
 import React, { useState } from 'react'
 import { Button } from 'react-native'
@@ -18,11 +18,15 @@ export const Register = () => {
     const RegisterUser = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((res) => {
-                const reference = ref(db, 'players/' + res.user.uid)
-                set(reference, {
-                    mark: 0,
-                    username,
-                })
+                if (res) {
+                    const reference = ref(db, 'players/' + res.user.uid)
+                    set(reference, {
+                        mark: 0,
+                    })
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    updateProfile(auth.currentUser, { displayName: username })
+                }
             })
             .catch((err) => {
                 alert(err)

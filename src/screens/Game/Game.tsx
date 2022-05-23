@@ -1,18 +1,22 @@
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import * as Styled from './Game.styles'
-import { off, onValue, ref } from 'firebase/database'
+import { off, onValue, ref, update, get } from 'firebase/database'
 import { auth, db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 import { PlayersList } from '../../components/playersList/PlayersList'
 import { MapButton } from '../../components/mapButton/MapButton'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useNavigation } from '@react-navigation/native'
+import { RouteParams } from '../../navigation/RootNavigator'
 
 interface GameProps {
     route: any
 }
 
 export const Game = (props: GameProps) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
     const [game, setGame] = useState<any>({})
     const [isParticipate, setIsParticipate] = useState<boolean>(false)
     const [players, setPlayers] = useState<any>([])
@@ -34,10 +38,7 @@ export const Game = (props: GameProps) => {
                         setIsParticipate(true)
                     }
                     if (playerData) {
-                        setPlayers((players: any) => [
-                            ...players,
-                            { id: i, name: playerData.username },
-                        ])
+                        setPlayers((players: any) => [...players, { id: i, name: playerData.name }])
                     } else {
                         setPlayers((players: any) => [...players, { id: i }])
                     }
@@ -53,6 +54,33 @@ export const Game = (props: GameProps) => {
             ])
     }, [])
 
+    const onSubmit = async () => {
+        if (auth.currentUser) {
+            const data = await get(ref(db, `games/${props.route.params.game.id}/players`))
+            const updatedData: any = {}
+            updatedData[`games/${props.route.params.game.id}/players`] = {
+                ...data.val(),
+                [auth.currentUser?.uid]: {
+                    id: auth.currentUser?.uid,
+                    name: auth.currentUser?.displayName,
+                },
+            }
+            updatedData[`players/${auth.currentUser?.uid}/games/${props.route.params.game.id}`] = {
+                id: props.route.params.game.id,
+                name: props.route.params.game.name,
+                date: props.route.params.game.date,
+            }
+            try {
+                await update(ref(db), updatedData)
+                navigation.navigate('Home')
+            } catch (e) {
+                console.log('Error updating data : ' + e)
+            }
+        } else {
+            navigation.navigate('SignIn')
+        }
+    }
+
     return (
         <TitleLayout title={props.route.params.game.name}>
             <ScrollView>
@@ -62,8 +90,15 @@ export const Game = (props: GameProps) => {
                     latitude={game.stadium?.geocode?.lat}
                     longitude={game.stadium?.geocode?.long}
                 />
-                {!isParticipate ? <Styled.GameStadium>Partcicipate</Styled.GameStadium> : <></>}
-
+                {!isParticipate ? (
+                    <TouchableOpacity onPress={onSubmit}>
+                        <Styled.JoinGameContainer>
+                            <Styled.JoinGameLabel>Join game</Styled.JoinGameLabel>
+                        </Styled.JoinGameContainer>
+                    </TouchableOpacity>
+                ) : (
+                    <></>
+                )}
                 <PlayersList players={players} />
             </ScrollView>
         </TitleLayout>
