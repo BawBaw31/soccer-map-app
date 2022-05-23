@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Text, TextInput, Button } from 'react-native'
+import { Button } from 'react-native'
 import { DisconnectedLayout } from '../../components/layouts/Layouts'
 import { auth } from '../../firebase/firebase-setup'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteParams } from '../../navigation/RootNavigator'
+import * as Styled from './Signin.styles'
 
 export const SignIn = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
@@ -24,23 +25,32 @@ export const SignIn = () => {
 
     return (
         <DisconnectedLayout>
-            <>
-                <Text>Sign in</Text>
-                <TextInput
+            <Styled.FormContainer>
+                <Styled.FormTitle>Signin</Styled.FormTitle>
+                <Styled.Field
                     placeholder="Email"
                     value={email}
                     onChangeText={(text) => setEmail(text)}
+                    placeholderTextColor="black"
                 />
-                <TextInput
+                <Styled.Field
                     placeholder="Password"
                     value={password}
                     secureTextEntry={true}
                     onChangeText={(text) => setPassword(text)}
+                    placeholderTextColor="black"
                 />
-
-                <Button title="Submit" onPress={SignInUser} />
-                <Button title="Register" onPress={() => navigation.navigate('Register')} />
-            </>
+                <Styled.FormButton>
+                    <Button title="Submit" onPress={SignInUser} color="black" />
+                </Styled.FormButton>
+                <Styled.FormButton>
+                    <Button
+                        title="Register"
+                        onPress={() => navigation.navigate('Register')}
+                        color="black"
+                    />
+                </Styled.FormButton>
+            </Styled.FormContainer>
         </DisconnectedLayout>
     )
 }
