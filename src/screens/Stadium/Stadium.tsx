@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
+import { Linking, ScrollView } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import { Games } from '../../components/games/GamesCarousel'
+import { FullWidthButton } from '../../components/fullWidthButton/FullWidthButton'
+
 interface StadiumProps {
     route: any
 }
@@ -10,7 +12,6 @@ export const Stadium = (props: StadiumProps) => {
     const [games, setGames] = useState<any[]>([])
 
     useEffect(() => {
-        const ac = new AbortController()
         setGames([])
         const data = props.route.params.stadium.games
         if (data !== null) {
@@ -18,24 +19,19 @@ export const Stadium = (props: StadiumProps) => {
                 setGames((oldGames: any) => [...oldGames, game])
             })
         }
-        return () => ac.abort()
     }, [])
 
     return (
         <TitleLayout title="Stadium screen">
             <ScrollView>
-                <Games
-                    games={games}
-                    title={
-                        'Stadium : ' +
-                        props.route.params.stadium.address?.city +
-                        ' ' +
-                        props.route.params.stadium.address?.streetNumber +
-                        ' ' +
-                        props.route.params.stadium.address?.streetName +
-                        ' ' +
-                        props.route.params.stadium.address?.postalCode
-                    }
+                <Games games={games} title={'Stadium : ' + props.route.params.stadium.title} />
+                <FullWidthButton
+                    text="Go to the stadium"
+                    onPress={() => {
+                        Linking.openURL(
+                            `https://www.google.com/maps/dir/?api=1&destination=${props.route.params.stadium.geocode.lat},${props.route.params.stadium.geocode.long}&dir_action=navigate`,
+                        )
+                    }}
                 />
             </ScrollView>
         </TitleLayout>
