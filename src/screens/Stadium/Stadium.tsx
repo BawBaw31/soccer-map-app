@@ -14,7 +14,6 @@ export const Stadium = (props: StadiumProps) => {
     useEffect(() => {
         setGames([])
         const data = props.route.params.stadium?.games
-        console.log(data)
         if (data !== undefined) {
             Object.values(data).map((game: any) => {
                 setGames((oldGames: any) => [...oldGames, game])

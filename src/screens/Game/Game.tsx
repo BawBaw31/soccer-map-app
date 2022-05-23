@@ -2,7 +2,7 @@ import React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import * as Styled from './Game.styles'
-import { off, onValue, ref, update, get } from 'firebase/database'
+import { off, onValue, ref, update, get, remove } from 'firebase/database'
 import { auth, db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 import { PlayersList } from '../../components/playersList/PlayersList'
@@ -81,6 +81,24 @@ export const Game = (props: GameProps) => {
         }
     }
 
+    const removePlayer = async () => {
+        if (auth.currentUser) {
+            try {
+                await remove(
+                    ref(db, `games/${props.route.params.game.id}/players/${auth.currentUser?.uid}`),
+                )
+                await remove(
+                    ref(db, `players/${auth.currentUser?.uid}/games/${props.route.params.game.id}`),
+                )
+                navigation.navigate('Home')
+            } catch (e) {
+                console.log('Error updating data : ' + e)
+            }
+        } else {
+            navigation.navigate('SignIn')
+        }
+    }
+
     return (
         <TitleLayout title={props.route.params.game.name}>
             <ScrollView>
@@ -97,7 +115,13 @@ export const Game = (props: GameProps) => {
                         </Styled.JoinGameContainer>
                     </TouchableOpacity>
                 ) : (
-                    <></>
+                    <>
+                        <TouchableOpacity onPress={removePlayer}>
+                            <Styled.JoinGameContainer>
+                                <Styled.JoinGameLabel>Give up</Styled.JoinGameLabel>
+                            </Styled.JoinGameContainer>
+                        </TouchableOpacity>
+                    </>
                 )}
                 <PlayersList players={players} />
             </ScrollView>
