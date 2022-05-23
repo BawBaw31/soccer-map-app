@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { ref, set } from 'firebase/database'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'react-native'
 import { DisconnectedLayout } from '../../components/layouts/Layouts'
 import { auth, db } from '../../firebase/firebase-setup'
@@ -14,6 +14,16 @@ export const Register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
+    const [isDisabled, setIsDisabled] = useState<boolean>(true)
+
+    useEffect(() => {
+        if (username !== '' && password !== '' && email !== '') {
+            setIsDisabled(false)
+        }
+        if (username === '' || password === '' || email === '') {
+            setIsDisabled(true)
+        }
+    }, [username, password, email])
 
     const RegisterUser = () => {
         createUserWithEmailAndPassword(auth, email, password)
@@ -59,8 +69,13 @@ export const Register = () => {
                     secureTextEntry={true}
                     onChangeText={(text) => setPassword(text)}
                 />
-                <Styled.FormButton>
-                    <Button title="Submit" onPress={RegisterUser} color="black" />
+                <Styled.FormButton disabled={isDisabled}>
+                    <Button
+                        title="Submit"
+                        onPress={RegisterUser}
+                        color="black"
+                        disabled={isDisabled}
+                    />
                 </Styled.FormButton>
                 <Styled.FormButton>
                     <Button
