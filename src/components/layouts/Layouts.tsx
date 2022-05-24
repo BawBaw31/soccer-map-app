@@ -10,6 +10,7 @@ interface LayoutProps {
 interface TitleLayoutProps {
     children: JSX.Element
     title: string
+    goBack: any
 }
 
 export const SearchLayout = (props: LayoutProps) => {
@@ -38,7 +39,7 @@ export const TitleLayout = (props: TitleLayoutProps) => {
     return (
         <Styled.SafeAreaContainer>
             <Styled.PageContainer>
-                <TitleHeader title={props.title} />
+                <TitleHeader title={props.title} goBack={props.goBack} />
                 <Styled.PageContent>{props.children}</Styled.PageContent>
                 <AppFooter />
             </Styled.PageContainer>

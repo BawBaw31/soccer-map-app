@@ -119,7 +119,7 @@ export const NewGame = () => {
     }
 
     return (
-        <TitleLayout title="New Game">
+        <TitleLayout title="New Game" goBack="Home">
             <ScrollView>
                 <StyledForm.CustomTextInput
                     placeholder="Name of the game"

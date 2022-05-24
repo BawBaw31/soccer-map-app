@@ -22,7 +22,7 @@ export const Stadium = (props: StadiumProps) => {
     }, [])
 
     return (
-        <TitleLayout title="Stadium screen">
+        <TitleLayout title="Stadium screen" goBack="Home">
             <ScrollView>
                 <Games games={games} title={'Stadium : ' + props.route.params.stadium.title} />
                 <MapButton

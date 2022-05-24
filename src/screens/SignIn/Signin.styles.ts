@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { Text, TouchableOpacity, TextInput } from 'react-native'
 import styled from 'styled-components'
 import { Colors, Font, Spacing } from '../../styles'
 
@@ -30,8 +30,4 @@ export const Field = styled(TextInput)`
     margin-right: ${Spacing.l};
     margin-bottom: ${Spacing.xl};
     background-color: ${Colors.white};
-`
-
-export const FormContainer = styled(ScrollView)`
-    width: 90%;
 `

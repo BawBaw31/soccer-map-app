@@ -100,7 +100,7 @@ export const Game = (props: GameProps) => {
     }
 
     return (
-        <TitleLayout title={props.route.params.game.name}>
+        <TitleLayout title={props.route.params.game.name} goBack="Home">
             <ScrollView>
                 <Styled.GameStadium>Stadium : {game.stadium?.title}</Styled.GameStadium>
                 <MapButton

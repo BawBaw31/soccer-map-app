@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Button } from 'react-native'
-import { DisconnectedLayout } from '../../components/layouts/Layouts'
+import { Button, ScrollView } from 'react-native'
+import { TitleLayout } from '../../components/layouts/Layouts'
 import { auth } from '../../firebase/firebase-setup'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native'
@@ -34,9 +34,8 @@ export const SignIn = () => {
     }
 
     return (
-        <DisconnectedLayout>
-            <Styled.FormContainer>
-                <Styled.FormTitle>Signin</Styled.FormTitle>
+        <TitleLayout title="Signin" goBack="Register">
+            <ScrollView>
                 <Styled.Field
                     placeholder="Email"
                     value={email}
@@ -65,7 +64,7 @@ export const SignIn = () => {
                         color="black"
                     />
                 </Styled.FormButton>
-            </Styled.FormContainer>
-        </DisconnectedLayout>
+            </ScrollView>
+        </TitleLayout>
     )
 }

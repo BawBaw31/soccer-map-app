@@ -3,10 +3,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { ref, set } from 'firebase/database'
 import React, { useEffect, useState } from 'react'
-import { Button } from 'react-native'
-import { DisconnectedLayout } from '../../components/layouts/Layouts'
+import { Button, ScrollView } from 'react-native'
 import { auth, db } from '../../firebase/firebase-setup'
 import { RouteParams } from '../../navigation/RootNavigator'
+import { TitleLayout } from '../../components/layouts/Layouts'
 import * as Styled from './Register.styles'
 
 export const Register = () => {
@@ -44,9 +44,8 @@ export const Register = () => {
     }
 
     return (
-        <DisconnectedLayout>
-            <Styled.FormContainer>
-                <Styled.FormTitle>Register</Styled.FormTitle>
+        <TitleLayout title="Register" goBack="Signin">
+            <ScrollView>
                 <Styled.FormLabel>Username</Styled.FormLabel>
                 <Styled.Field
                     placeholder="Username"
@@ -84,7 +83,7 @@ export const Register = () => {
                         color="black"
                     />
                 </Styled.FormButton>
-            </Styled.FormContainer>
-        </DisconnectedLayout>
+            </ScrollView>
+        </TitleLayout>
     )
 }
