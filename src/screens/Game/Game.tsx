@@ -1,12 +1,12 @@
 import React from 'react'
-import { ScrollView, Linking } from 'react-native'
+import { ScrollView } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import * as Styled from './Game.styles'
 import { off, onValue, ref } from 'firebase/database'
 import { db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 import { PlayersList } from '../../components/playersList/PlayersList'
-import { FullWidthButton } from '../../components/fullWidthButton/FullWidthButton'
+import { MapButton } from '../../components/mapButton/MapButton'
 
 interface GameProps {
     route: any
@@ -15,7 +15,7 @@ interface GameProps {
 export const Game = (props: GameProps) => {
     const [game, setGame] = useState<any>({})
 
-    useEffect(() => {
+    useEffect((): any => {
         try {
             onValue(ref(db, `games/${props.route.params.game.id}`), (snapshot) => {
                 const data = snapshot.val()
@@ -24,22 +24,19 @@ export const Game = (props: GameProps) => {
         } catch (e) {
             console.log('Error on getting data : ' + e)
         }
-        return () => off(ref(db, `games/${props.route.params.game.id}`))
+        return () => off(ref(db, `games/${props.route.params.game.id}/players`))
     }, [])
 
     return (
-        <TitleLayout title={props.route.params.game.name}>
+        <TitleLayout title={props.route.params.game.name} goBack="Home">
             <ScrollView>
                 <Styled.GameStadium>Stadium : {game.stadium?.title}</Styled.GameStadium>
-                <FullWidthButton
+                <MapButton
                     text="Go to the game"
-                    onPress={() => {
-                        Linking.openURL(
-                            `https://www.google.com/maps/dir/?api=1&destination=${game.stadium.geocode.lat},${game.stadium.geocode.long}&dir_action=navigate`,
-                        )
-                    }}
+                    latitude={game.stadium?.geocode?.lat}
+                    longitude={game.stadium?.geocode?.long}
                 />
-                <PlayersList gameId={props.route.params.game.id} />
+                <PlayersList game={props.route.params.game} />
             </ScrollView>
         </TitleLayout>
     )

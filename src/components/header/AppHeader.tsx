@@ -15,7 +15,6 @@ export const SearchHeader = () => {
 
     const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void => {
         e.preventDefault()
-        console.log(searchText)
     }
 
     return (
@@ -35,15 +34,16 @@ export const SearchHeader = () => {
 
 interface TitleHeaderProps {
     title: string
+    goBack: any
 }
 
-export const TitleHeader = ({ title }: TitleHeaderProps) => {
+export const TitleHeader = ({ title, goBack }: TitleHeaderProps) => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
     return (
         <Styled.AppHeaderContainer>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.canGoBack() ? navigation.goBack() : navigation.navigate('Home')
+                    navigation.canGoBack() ? navigation.goBack() : navigation.navigate(goBack)
                 }}
             >
                 <Styled.BackArrow />

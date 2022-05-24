@@ -2,7 +2,7 @@ import DateTimePicker, { Event } from '@react-native-community/datetimepicker'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { get, ref, update } from 'firebase/database'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { Dimensions, ScrollView } from 'react-native'
 import { AutocompleteDropdown as CityStadiumAutocomplete } from 'react-native-autocomplete-dropdown'
 import { uid } from 'uid'
@@ -24,6 +24,17 @@ export const NewGame = () => {
     const [mode, setMode] = useState<DatePickerMode>('date')
     const [suggestions, setSuggestions] = useState<any[]>([])
     const [selectedItem, setSelectedItem] = useState<any>(null)
+
+    const [isDisabled, setIsDisabled] = useState<boolean>(true)
+
+    useEffect(() => {
+        if (name !== '' && selectedItem !== null) {
+            setIsDisabled(false)
+        }
+        if (name === '' || selectedItem === null) {
+            setIsDisabled(true)
+        }
+    }, [name, selectedItem])
 
     const getAutocomplete = useCallback(async (q) => {
         const filterToken = q.toLowerCase()
@@ -108,7 +119,7 @@ export const NewGame = () => {
     }
 
     return (
-        <TitleLayout title="New Game">
+        <TitleLayout title="New Game" goBack="Home">
             <ScrollView>
                 <StyledForm.CustomTextInput
                     placeholder="Name of the game"
@@ -173,7 +184,7 @@ export const NewGame = () => {
                         backgroundColor: Colors.white,
                     }}
                 />
-                <CustomButton text="Submit" onPress={onSubmit} />
+                <CustomButton isDisabled={isDisabled} text="Submit" onPress={onSubmit} />
             </ScrollView>
         </TitleLayout>
     )
