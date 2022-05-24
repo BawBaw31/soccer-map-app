@@ -15,7 +15,6 @@ export const SearchHeader = () => {
 
     const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void => {
         e.preventDefault()
-        console.log(searchText)
     }
 
     return (

@@ -23,3 +23,19 @@ export const PlayersListTitle = styled(Text)`
     font-size: 24px;
     margin-bottom: ${Spacing.m};
 `
+
+export const JoinGameContainer = styled(View)`
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: ${Colors.gray};
+    border-radius: 10px;
+    margin: ${Spacing.s} 0;
+`
+
+export const JoinGameLabel = styled(Text)`
+    font-size: 30px;
+    padding: ${Spacing.xxl} ${Spacing.l};
+    font-family: ${Font.montserratExtrabold};
+    color: ${Colors.white};
+`
