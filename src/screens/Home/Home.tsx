@@ -1,11 +1,12 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { Games } from '../../components/games/GamesCarousel'
-import { SearchLayout } from '../../components/layouts/Layouts'
+import { SearchLayout, TitleLayout } from '../../components/layouts/Layouts'
 import { Map } from '../../components/map/Map'
 import { off, onValue, ref } from 'firebase/database'
 import { auth, db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
+import { TitleHeader } from '../../components/header/AppHeader'
 
 export const Home = () => {
     const [games, setGames] = useState<any[]>([])
@@ -28,11 +29,11 @@ export const Home = () => {
     }, [])
 
     return (
-        <SearchLayout>
+        <TitleLayout title="Soccer Map">
             <ScrollView>
                 <Games games={games} title="My games" />
                 <Map />
             </ScrollView>
-        </SearchLayout>
+        </TitleLayout>
     )
 }

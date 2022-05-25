@@ -34,20 +34,22 @@ export const SearchHeader = () => {
 
 interface TitleHeaderProps {
     title: string
-    goBack: any
+    goBack?: any
 }
 
 export const TitleHeader = ({ title, goBack }: TitleHeaderProps) => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
     return (
         <Styled.AppHeaderContainer>
-            <TouchableOpacity
-                onPress={() => {
-                    navigation.canGoBack() ? navigation.goBack() : navigation.navigate(goBack)
-                }}
-            >
-                <Styled.BackArrow />
-            </TouchableOpacity>
+            {goBack && (
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.canGoBack() ? navigation.goBack() : navigation.navigate(goBack)
+                    }}
+                >
+                    <Styled.BackArrow />
+                </TouchableOpacity>
+            )}
             <Styled.PageTitle>{title}</Styled.PageTitle>
         </Styled.AppHeaderContainer>
     )
