@@ -10,7 +10,7 @@ interface LayoutProps {
 interface TitleLayoutProps {
     children: JSX.Element
     title: string
-    goBack?: any
+    goBack?: string
     noFooter?: boolean
 }
 

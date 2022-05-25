@@ -7,9 +7,10 @@ import { db } from '../../firebase/firebase-setup'
 import { useEffect, useState } from 'react'
 import { PlayersList } from '../../components/playersList/PlayersList'
 import { MapButton } from '../../components/mapButton/MapButton'
+import { Route } from '@react-navigation/native'
 
 interface GameProps {
-    route: any
+    route: Route<'Game', { game: any }>
 }
 
 export const Game = (props: GameProps) => {

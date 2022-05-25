@@ -3,9 +3,10 @@ import { ScrollView } from 'react-native'
 import { TitleLayout } from '../../components/layouts/Layouts'
 import { Games } from '../../components/games/GamesCarousel'
 import { MapButton } from '../../components/mapButton/MapButton'
+import { Route } from '@react-navigation/routers'
 
 interface StadiumProps {
-    route: any
+    route: Route<'Stadium', { stadium: any }>
 }
 
 export const Stadium = (props: StadiumProps) => {
