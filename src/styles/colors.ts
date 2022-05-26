@@ -1,6 +1,7 @@
 export const primary = '#24EA73'
 export const background = '#312F36'
 export const backgroundBis = '#383b42'
+export const transparentBackground = 'rgba(0, 0, 0, 0.6)'
 export const white = '#FFF5F5'
 export const black = '#000000'
 export const gray = '#72757E'

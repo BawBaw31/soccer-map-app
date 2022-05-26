@@ -34,7 +34,7 @@ export const SignIn = () => {
     }
 
     return (
-        <TitleLayout title="Signin" goBack="Register">
+        <TitleLayout title="Signin" noFooter>
             <ScrollView>
                 <Styled.Field
                     placeholder="Email"

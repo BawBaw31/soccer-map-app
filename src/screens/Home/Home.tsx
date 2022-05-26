@@ -1,11 +1,10 @@
-import React from 'react'
+import { off, onValue, ref } from 'firebase/database'
+import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { Games } from '../../components/games/GamesCarousel'
-import { SearchLayout } from '../../components/layouts/Layouts'
+import { TitleLayout } from '../../components/layouts/Layouts'
 import { Map } from '../../components/map/Map'
-import { off, onValue, ref } from 'firebase/database'
 import { auth, db } from '../../firebase/firebase-setup'
-import { useEffect, useState } from 'react'
 
 export const Home = () => {
     const [games, setGames] = useState<any[]>([])
@@ -28,11 +27,11 @@ export const Home = () => {
     }, [])
 
     return (
-        <SearchLayout>
+        <TitleLayout title="Soccer Map">
             <ScrollView>
                 <Games games={games} title="My games" />
                 <Map />
             </ScrollView>
-        </SearchLayout>
+        </TitleLayout>
     )
 }

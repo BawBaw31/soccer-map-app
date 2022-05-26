@@ -44,7 +44,7 @@ export const Register = () => {
     }
 
     return (
-        <TitleLayout title="Register" goBack="Signin">
+        <TitleLayout title="Register" noFooter>
             <ScrollView>
                 <Styled.FormLabel>Username</Styled.FormLabel>
                 <Styled.Field
